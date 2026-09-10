@@ -1,0 +1,28 @@
+<!-- repeated content -->
+
+{% load static %}
+
+<html>
+    <head>
+        <title>
+            Hello, world!
+        </title>
+        <!-- code within the django template language with % -->
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+        <nav>
+            <li><a href='{% url "home_page" %}'>Home</a></li>
+            <li><a href='{% url "about" %}'>About</a></li>
+        </nav>
+
+        <!-- specific content here from others -->
+         {% block content %}
+         {% endblock %}
+        <footer>
+            The current time is {{time}}. <br>
+            This page is brought to you by the letters
+            {{letter1}} and {{letter2}}, and the number {{number}}.
+        </footer>
+    </body>
+</html>
