@@ -1,10 +1,14 @@
-from django.shortcuts import render
-from django.http import HttpRequest, HttpResponse
+# File: views.py
+# Author: Gab Alingog (galingog@bu.edu), 09/15/2026
+# Description: Stores the quotes and images utilized by the website, alongside the primary functions.
 
-# Create your views here.
-quote_list = ["I'm just your friendly neighborhood Spider-Man",
-              "What is the point of having some kind of special power if you don't use it to help people?",
-              "Sometimes to do what's right we must be steady and give up the things we desire the most… even our dreams.",
+from django.shortcuts import render
+import random
+
+# Stores all the Spider-Man quotes used
+quotes = ["I'm just your friendly neighborhood Spider-Man",
+            "What is the point of having some kind of special power if you don't use it to help people?",
+            "Sometimes to do what's right we must be steady and give up the things we desire the most… even our dreams.",
               "It's a leap of faith. That's all it is, Miles. A leap of faith.",
               "When you think you've given your all… When you think you can't keep going… Spider-Man always gets up.",
               "I'd rather just stay on the ground for a little while. Friendly neighborhood Spider-Man. Somebody's got to look out for the little guy, right?",
@@ -13,12 +17,13 @@ quote_list = ["I'm just your friendly neighborhood Spider-Man",
               "That you're wrong. You think you're right. And that makes you dangerous.",
               "This is my chance to prove myself.",
               "New York. Queens. It's a rough borough, but, hey, it's home.",
-              "Just because we've lost someone... It doesn't mean we have to do this alone. I mean we can't. Trust me, I've been trying. It doesn't work.,"
+              "Just because we've lost someone... It doesn't mean we have to do this alone. I mean we can't. Trust me, I've been trying. It doesn't work.",
               "You have me.",
               "Because I'm not just Peter Parker. I'm Spider-Man. And sometimes Spider-Man has to do the hard thing, even if it breaks Peter Parker's heart.",
               ]
 
-images_list = ["https://variety.com/wp-content/uploads/2015/02/spidey.jpg?w=1000&h=667&crop=1",
+# Stores all the Spider-Man images used
+images = ["https://variety.com/wp-content/uploads/2015/02/spidey.jpg?w=1000&h=667&crop=1",
                "https://cdn.mos.cms.futurecdn.net/3JCaEkiSwWKAwgLMjpChF3-1200-80.jpg",
                "https://static0.polygonimages.com/wordpress/wp-content/uploads/2026/08/spider-man-brand-new-day-tom-holland.jpg?w=1600&h=900&fit=crop",
                "https://cdn.britannica.com/54/93454-050-5AC49E5E/Spider-Man-Tobey-Maguire-2.jpg",
@@ -36,3 +41,31 @@ images_list = ["https://variety.com/wp-content/uploads/2015/02/spidey.jpg?w=1000
                "https://static01.nyt.com/images/2017/06/30/arts/07SPIDERMAN2/07SPIDERMAN2-superJumbo.jpg",
                ]
 
+# Functions to create a quote of the day website
+
+def main(request):
+    """Direct the logic to the quote function since the path specificed to main"""
+    return quote(request)
+
+def quote(request):
+    """Displays a random quote and image to the page"""
+
+    # Picks a random quote and image
+    rand_quote = random.randint(0, len(quotes) - 1)
+    rand_img = random.randint(0, len(images) - 1)
+    context = {
+        'quote': quotes[rand_quote],
+        'image': images[rand_img],
+    }
+    template_name = 'quotes/quote.html'
+    return render(request, template_name, context)
+
+def show_all(request):
+    """Displays all the quote and image data"""
+
+    context = {
+        'quotes': quotes,
+        'images': images,
+    }
+    template_name = 'quotes/show_all.html'
+    return render(request, template_name, context)
