@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-@r8aa*bn#bfcg6a39h%#_23c#gscuf3vlh0tt_qbzf!shi&t8-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['cs-webapps.bu.edu','*']
 
 
 # Application definition
@@ -138,3 +138,13 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL= "media/"
+
+import socket
+CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'
+
+if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
+    STATIC_URL = '/galingog/static/'
+    MEDIA_URL = '/galingog/media/'
