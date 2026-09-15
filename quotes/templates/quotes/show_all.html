@@ -1,13 +1,18 @@
-<!DOCTYPE html>
-<html>
-    <body>
-        <table>
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+    <h1>All Spider-Man quotes</h1>
+    <ol>
+        {% for x in quotes %}
+            <li>{{x}}</li>
+        {% endfor %}
+    </ol>
+
+    <h1>All Spider-Man images</h1>
+    <table>
+        {% for x in images %}
             <tr>
-                <th>Image</th>
-                <th>Quote</th>
+                <td><img src="{{x}}" alt="Spider-Man images" width="400"></td>
             </tr>
-            
-            {% for }
-        </table>
-    </body>
-</html>
+        {% endfor %}
+{% endblock %}

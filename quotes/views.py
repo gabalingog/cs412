@@ -69,3 +69,8 @@ def show_all(request):
     }
     template_name = 'quotes/show_all.html'
     return render(request, template_name, context)
+
+def about(request):
+    """Displays a short biographical information about the person in the images"""
+    template_name = 'quotes/about.html'
+    return render(request, template_name)

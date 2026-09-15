@@ -1,0 +1,15 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <body>
+        <nav>
+            <li><a href='{% url "main" %}'>Home</a></li>
+            <li><a href='{% url "show_all" %}'>Show All</a></li>
+            <li><a href='{% url "about" %}'>About</a></li>
+        </nav>
+        
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
