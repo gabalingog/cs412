@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
+# ADD new app here
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hw',
+    'quotes',
 ]
 
 MIDDLEWARE = [
