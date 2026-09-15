@@ -1,7 +1,16 @@
+<!-- File: quote.html -->
+<!-- Author: Gab Alingog (galingog@bu.edu), 9/14/2026 -->
+<!-- Description: Displays randomized pair of quote and image -->
+
 {% extends 'quotes/base.html' %}
 
 {% block content %}
     <!-- Displays the randomized images and quotes -->
     <img src="{{image}}" alt="Spider-Man image">
     <p>{{quote}}</p>
+
+    <footer class="footer-quote">
+        <p>Refresh the page for a new quote!</p>
+        <p>Made by Gab Alingog for CS 412</p>
+    </footer>
 {% endblock %}

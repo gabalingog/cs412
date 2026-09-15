@@ -1,3 +1,7 @@
+/* File: quotes_style.css */
+/* Author: Gab Alingog (galingog@bu.edu), 09/15/2026 */
+/* Description:  CSS file of the website for design */
+
 body {
     margin: 0;
     padding: 0;
@@ -88,4 +92,22 @@ p {
     max-width: 800px;
     margin: 0 auto;
     padding: 40px 40px;
+}
+
+.footer-quote {
+    width: 100%;
+    box-sizing: border-box;
+    background: #0047AB;
+    position: fixed;
+    bottom: 0;
+    padding: 5px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-quote p {
+    color: #FFFFFF;
+    font-size: 10px;
+    margin: 0;
 }

@@ -1,5 +1,5 @@
 # File: views.py
-# Author: Gab Alingog (galingog@bu.edu), 09/15/2026
+# Author: Gab Alingog (galingog@bu.edu), 09/14/2026
 # Description: Stores the quotes and images utilized by the website, alongside the primary functions.
 
 from django.shortcuts import render
@@ -63,6 +63,7 @@ def quote(request):
 def show_all(request):
     """Displays all the quote and image data"""
 
+    # Returns every data in the list
     context = {
         'quotes': quotes,
         'images': images,

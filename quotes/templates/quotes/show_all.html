@@ -1,6 +1,11 @@
+<!-- File: show_all.html -->
+<!-- Author: Gab Alingog (galingog@bu.edu), 9/14/2026 -->
+<!-- Description: Displays all of the quote and image data stored -->
+
 {% extends 'quotes/base.html' %}
 
 {% block content %}
+    <!-- Loops through the list of quotes and displays each with ordered bullet points -->
     <h1>All Spider-Man quotes</h1>
     <ol class="quote-list">
         {% for x in quotes %}
@@ -8,11 +13,12 @@
         {% endfor %}
     </ol>
 
+    <!-- Loops through the list of images and displays each -->
     <h1>All Spider-Man images</h1>
     <div class="image-grid">
         {% for x in images %}
             <tr>
-                <td><img src="{{x}}" alt="Spider-Man images" width="400"></td>
+                <td><img src="{{x}}" alt="Spider-Man images"></td>
             </tr>
         {% endfor %}
     </div>
