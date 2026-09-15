@@ -2,17 +2,18 @@
 
 {% block content %}
     <h1>All Spider-Man quotes</h1>
-    <ol>
+    <ol class="quote-list">
         {% for x in quotes %}
             <li>{{x}}</li>
         {% endfor %}
     </ol>
 
     <h1>All Spider-Man images</h1>
-    <table>
+    <div class="image-grid">
         {% for x in images %}
             <tr>
                 <td><img src="{{x}}" alt="Spider-Man images" width="400"></td>
             </tr>
         {% endfor %}
+    </div>
 {% endblock %}

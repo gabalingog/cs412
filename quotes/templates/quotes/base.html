@@ -2,13 +2,19 @@
 
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" href="{% static 'quotes_style.css' %}">
+    </head>
     <body>
         <nav>
-            <li><a href='{% url "main" %}'>Home</a></li>
-            <li><a href='{% url "show_all" %}'>Show All</a></li>
-            <li><a href='{% url "about" %}'>About</a></li>
+            <div class="nav-title"><strong>SPIDERMAN QUOTES</strong></div>
+            <ul>
+                <li><a href='{% url "main" %}'>Home</a></li>
+                <li><a href='{% url "show_all" %}'>Show All</a></li>
+                <li><a href='{% url "about" %}'>About</a></li>
+            </ul>
         </nav>
-        
+
         {% block content %}
         {% endblock %}
     </body>
