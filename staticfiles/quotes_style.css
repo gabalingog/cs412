@@ -1,0 +1,113 @@
+/* File: quotes_style.css */
+/* Author: Gab Alingog (galingog@bu.edu), 09/15/2026 */
+/* Description:  CSS file of the website for design */
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #dd3f3f;
+    color: #FFFFFF;
+    font-family: arial;
+    text-align: center;
+}
+
+nav {
+    background-color: #0047AB;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-title {
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+img {
+    width: 400px;
+    height: 250px;
+    border-radius: 15px;
+    display: block;
+    margin: 30px auto;
+    margin-top: 70px;
+}
+
+p {
+    font-size: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.quote-list {
+    text-align: left;
+    padding: 0 120px;
+    font-size: 15px;
+    line-height: 25px;
+    margin-bottom: 50px;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 0 60px;
+    justify-items: center;
+}
+
+.image-grid img {
+    width: 450px;
+    height: 250px;
+    object-fit: cover;
+    margin: 0;
+}
+
+.short-bio {
+    text-align: left;
+    max-width: none;
+    margin: 20px 20px;
+    padding: 0 20px;
+    font-size: 15px;
+    line-height: 25px;
+}
+
+.about-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 40px;
+}
+
+.footer-quote {
+    width: 100%;
+    box-sizing: border-box;
+    background: #0047AB;
+    position: fixed;
+    bottom: 0;
+    padding: 5px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-quote p {
+    color: #FFFFFF;
+    font-size: 10px;
+    margin: 0;
+}
