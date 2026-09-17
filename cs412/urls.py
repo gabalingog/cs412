@@ -22,7 +22,6 @@ from django.conf import settings
 # ADD new file path here
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('quotes.urls')), 
     path('hw/', include('hw.urls')),
     path('quotes/', include('quotes.urls')),
     path('formdata/', include('formdata.urls')),

@@ -3,7 +3,9 @@
 {% block content %}
 <div>
     <h1>Contact Form</h1>
-    <form action="">
+    <!-- default action is to return to same page -->
+    <form action="{% url 'submit' %}" method="POST"> 
+        {% csrf_token %}
         Name: <input type="text" name="name">
         Favorite Color: <input type="text" name="favorite_color">
         <input type="Submit">
