@@ -6,8 +6,8 @@
     <p><strong>Your order will be ready at: {{time_ready}}</strong></p>
 
     <p>Your order is confirmed:</p>
-    {% for x in ordered %}
-        <p>{{item}} - ${{price}}</p>
+    {% for name, price in ordered %}
+        <p>{{name}} - ${{price}}</p>
     {% endfor %}
 
     <p>Special instructions:</p>

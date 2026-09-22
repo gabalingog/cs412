@@ -30,7 +30,7 @@ def confirmation(request):
 
         for x, (name, price) in prices.items():
             if x in request.POST:
-                ordered.append({name, price})
+                ordered.append((name, price))
                 total += price
             
         name = request.POST.get('name','')
