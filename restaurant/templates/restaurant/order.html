@@ -2,7 +2,29 @@
 
 {% block content %}
 <div>
-    order
+    <h1>Place an order:</h1>
+    <form action="{% url 'confirmation' %}" method="POST"> 
+        {% csrf_token %}
+        <p>Select your food items:</p>
+        <input type="checkbox" name="sinigang">Sinigang ($22)
+        <input type="checkbox" name="tinola">Tinola ($20)
+        <input type="checkbox" name="adobo">Adobo ($22)
+        <input type="checkbox" name="nilaga">Nilaga ($20)
+        <p>Today's specials:</p>
+        <input type="checkbox" name="mango">Mango Shake ($6.5)
+        <input type="checkbox" name="flan">Leche Flan ($5)
+        <p>Special instructions:</p>
+        <textarea
+            name="instructions"
+            placeholder="Type here..."
+        ></textarea>
+        <p>Customer information:</p>
+        Name: <input type="text" name="name">
+        Phone: <input type="text" name="phone">
+        Email: <input type="text" name="email">
+        <p>Place your order with Max's Restaurant!</p>
+        <input type="Submit">
+    </form>
 </div>
 
 {% endblock %}
