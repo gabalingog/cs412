@@ -2,7 +2,21 @@
 
 {% block content %}
 <div>
-    confirmation
+    <p>Thank you for your order at Max's Restaurant!</p>
+    <p><strong>Your order will be ready at: {{time_ready}}</strong></p>
+
+    <p>Your order is confirmed:</p>
+    {% for x in ordered %}
+        <p>{{item}} - ${{price}}</p>
+    {% endfor %}
+
+    <p>Special instructions:</p>
+    <p>{{instructions}}</p>
+
+    <p><strong>Total: ${{total}}</strong></p>
+
+    <p>Customer information:</p>
+    <p>{{name}}<br>{{phone}}<br>{{email}}</p>
 </div>
 
 {% endblock %}
