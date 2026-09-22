@@ -33,12 +33,12 @@ def confirmation(request):
                 ordered.append((name, price))
                 total += price
             
-        name = request.POST.get('name','')
-        phone = request.POST.get('phone','')
-        email = request.POST.get('email','')
-        instructions = request.POST.get('instructions','')
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        email = request.POST.get('email')
+        instructions = request.POST.get('instructions')
 
-        time_later = random.randint(30, 60) * 60
+        time_later = random.randint(15, 45) * 60
         time_ready = time.ctime(time.time() + time_later)
 
         context = {
