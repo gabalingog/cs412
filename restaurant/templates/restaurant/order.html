@@ -1,7 +1,7 @@
 {% extends 'restaurant/base.html' %}
 
 {% block content %}
-<div>
+<div class="order">
     <h1>Place an order:</h1>
     <form action="{% url 'confirmation' %}" method="POST"> 
         {% csrf_token %}

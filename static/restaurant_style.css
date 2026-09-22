@@ -39,9 +39,37 @@ img {
 
 .main ul {
     list-style-type: none;
-    text-align: left;
-    margin: 0 auto;
-    width: fit-content;
-    margin-bottom: 30px;
     line-height: 25px;
+}
+
+.bottom {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 60px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.hours {
+    text-align: left;
+    flex: 0 0 auto;
+    border: 1px solid maroon;
+    border-radius: 20px;
+    padding: 25px;
+}
+
+.about {
+    text-align: left;
+    flex: 0 1 500px;
+    max-width: 500px;
+}
+
+.about p {
+    line-height: 35px;
+}
+
+.order {
+    text-align: left;
+    padding: 50px;
 }
