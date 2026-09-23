@@ -1,30 +1,36 @@
+<!-- File: order.html -->
+<!-- Author: Gab Alingog (galingog@bu.edu), 9/22/2026 -->
+<!-- Description: Contains the order form and menu -->
+
 {% extends 'restaurant/base.html' %}
 
 {% block content %}
 <div class="order">
     <h1>Place an order:</h1>
-    <form action="{% url 'confirmation' %}" method="POST"> 
-        {% csrf_token %}
-        <p>Select your food items:</p>
-        <input type="checkbox" name="sinigang">Sinigang ($22)
-        <input type="checkbox" name="tinola">Tinola ($20)
-        <input type="checkbox" name="adobo">Adobo ($22)
-        <input type="checkbox" name="nilaga">Nilaga ($20)
-        <p>Today's specials:</p>
-        <input type="checkbox" name="mango">Mango Shake ($6.5)
-        <input type="checkbox" name="flan">Leche Flan ($5)
-        <p>Special instructions:</p>
-        <textarea
-            name="instructions"
-            placeholder="Type here..."
-        ></textarea>
-        <p>Customer information:</p>
-        Name: <input type="text" name="name">
-        Phone: <input type="text" name="phone">
-        Email: <input type="text" name="email">
-        <p>Place your order with Max's Restaurant!</p>
-        <input type="Submit">
-    </form>
+    <div class="inside">
+        <form action="{% url 'confirmation' %}" method="POST"> 
+            {% csrf_token %}
+            <p><strong>Select your food items:</strong></p>
+            <input type="checkbox" name="sinigang">Sinigang ($22)
+            <br><input type="checkbox" name="tinola">Tinola ($20)
+            <br><input type="checkbox" name="adobo">Adobo ($22)
+            <br><input type="checkbox" name="nilaga">Nilaga ($20)
+            <p><strong>Today's specials:</strong></p>
+            <input type="checkbox" name="{{key1}}">{{special1}} (${{price1}})
+            <p><strong>Special instructions:</strong></p>
+            <textarea
+                name="instructions"
+                placeholder="Type here..."
+            ></textarea>
+            <p><strong>Customer information:</strong></p>
+            Name: <input type="text" name="name">
+            <br>Phone: <input type="text" name="phone">
+            <br>Email: <input type="text" name="email">
+            <p><strong>Place your order with Max's Restaurant!</strong></p>
+            <input type="Submit">
+        </form>
+    </div>
+    
 </div>
 
 {% endblock %}

@@ -1,22 +1,29 @@
+<!-- File: confirmation.html -->
+<!-- Author: Gab Alingog (galingog@bu.edu), 9/22/2026 -->
+<!-- Description: Contains the confirmation receipt of the order -->
+
 {% extends 'restaurant/base.html' %}
 
 {% block content %}
 <div>
-    <p>Thank you for your order at Max's Restaurant!</p>
-    <p><strong>Your order will be ready at: {{time_ready}}</strong></p>
+    <h1>Thank you for your order!</h1>
+    <div class="inside">
+        <p><strong>Your order will be ready at: {{time_ready}}</strong></p>
 
-    <p>Your order is confirmed:</p>
-    {% for name, price in ordered %}
-        <p>{{name}} - ${{price}}</p>
-    {% endfor %}
+        <p>Your order is confirmed:</p>
+        {% for name, price in ordered %}
+            <p>{{name}} - ${{price}}</p>
+        {% endfor %}
 
-    <p>Special instructions:</p>
-    <p>{{instructions}}</p>
+        <p>Special instructions:</p>
+        <p>{{instructions}}</p>
 
-    <p><strong>Total: ${{total}}</strong></p>
+        <p><strong>Total: ${{total}}</strong></p>
 
-    <p>Customer information:</p>
-    <p>{{name}}<br>{{phone}}<br>{{email}}</p>
+        <p><strong>Customer information:</strong></p>
+        <p>{{name}}<br>{{phone}}<br>{{email}}</p>
+    </div>
+    
 </div>
 
 {% endblock %}
