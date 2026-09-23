@@ -6,6 +6,7 @@ from django.urls import path
 from django.conf import settings
 from . import views
 
+# Updates urls to work when only restaurant/
 urlpatterns = [
     path('', views.main, name='main'),
     path(r'main', views.main, name='main'),
