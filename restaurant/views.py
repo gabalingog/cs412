@@ -8,6 +8,7 @@ import random, time
 # Main menu data
 prices = {
     'sinigang': ('Sinigang', 22.00),
+    'added': ('Extra Soup', 2.00),
     'tinola': ('Tinola', 20.00),
     'adobo': ('Adobo', 22.00),
     'nilaga': ('Nilaga', 20.00),

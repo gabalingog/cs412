@@ -10,18 +10,23 @@
     <div class="inside">
         <form action="{% url 'confirmation' %}" method="POST"> 
             {% csrf_token %}
+            
             <p><strong>Select your food items:</strong></p>
             <input type="checkbox" name="sinigang">Sinigang ($22)
-            <br><input type="checkbox" name="tinola">Tinola ($20)
+            <br><div class="indent"><input type="checkbox" name="added">Extra Soup ($2)</div>
+            <input type="checkbox" name="tinola">Tinola ($20)
             <br><input type="checkbox" name="adobo">Adobo ($22)
             <br><input type="checkbox" name="nilaga">Nilaga ($20)
+
             <p><strong>Today's specials:</strong></p>
             <input type="checkbox" name="{{key1}}">{{special1}} (${{price1}})
+
             <p><strong>Special instructions:</strong></p>
             <textarea
                 name="instructions"
                 placeholder="Type here..."
             ></textarea>
+
             <p><strong>Customer information:</strong></p>
             Name: <input type="text" name="name">
             <br>Phone: <input type="text" name="phone">
