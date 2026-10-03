@@ -1,0 +1,31 @@
+<!-- File: mini_insta/templates/mini_insta/base.html
+Author: Gab Alingog (galingog@bu.edu), 10/01/2026
+Description: Contains the base html code -->
+
+{% load static %}
+
+<html>
+    <head>
+        <title>Mini Insta</title>
+        <link rel="stylesheet" href="{% static 'insta_styles.css' %}">
+    </head>
+
+    <body>
+        <div class="header">
+            <h1>MiniInsta: {% block header %}{% endblock %}</h1>
+        </div>
+
+        {% block content %}
+        {% endblock content %}
+
+        <div class="footer">
+            <a href="{% url 'show_all_profiles' %}" title="Show all profiles">
+                <svg class="home-icon" viewBox="0 0 24 24">
+                    <path d="M12 2.5 1.5 12h3v9.5h6v-6.5h3v6.5h6V12h3z"/>
+                </svg>
+            </a>
+            {% block footer %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

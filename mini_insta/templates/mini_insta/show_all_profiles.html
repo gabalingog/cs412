@@ -1,0 +1,30 @@
+<!-- File: mini_insta/templates/mini_insta/show_all_profiles.html
+Author: Gab Alingog (galingog@bu.edu), 10/01/2026
+Description: Landing page of all profiles -->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block header %}
+Showing all Profiles
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <div class="grid-container">
+        {% for profile in profiles %}
+        <div class="profile-card">
+            <a href="{% url 'show_profile' profile.pk %}">
+            {% if profile.profile_image_url %}
+            <img src="{{profile.profile_image_url}}" alt="{{profile.display_name}}">
+            {% endif %}
+
+            <div class="profile-names">
+                <strong>@{{profile.username}}</strong>
+                {{profile.display_name}}
+            </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

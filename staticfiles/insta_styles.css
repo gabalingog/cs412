@@ -1,0 +1,135 @@
+/* File: quotes_style.css */
+/* Author: Gab Alingog (galingog@bu.edu), 10/02/2026 */
+/* Description:  CSS file of the website for design */
+
+body {
+    margin: 0;
+    padding-bottom: 90px;
+    background-color: white;
+    color: black;
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+.header {
+    background-color: #f4f4f4;
+}
+
+.header h1 {
+    margin: 0;
+    padding: 2px 0 6px 0;
+    font-size: 32px;
+    line-height: 1.2;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 74px;
+    padding: 0 8px;
+    background-color: #f4f4f4;
+    border-top: 1px solid #dddddd;
+}
+
+.footer a {
+    display: flex;
+}
+
+.home-icon {
+    width: 42px;
+    height: 42px;
+    fill: black;
+}
+
+.footer img {
+    width: 46px;
+    height: 46px;
+    border: 1px solid black;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.main {
+    margin-top: 64px;
+    padding: 0 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+.profile-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.profile-names {
+    padding: 8px 0;
+}
+
+.profile-names strong {
+    display: block;
+}
+
+.profile {
+    display: grid;
+    grid-template-columns: 470px 1fr;
+}
+
+.profile-side img {
+    display: block;
+    width: 148px;
+    height: 148px;
+    margin: 36px auto 20px auto;
+    border: 1px solid black;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.joined {
+    color: #666666;
+}
+
+.profile h2 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.profile-info h2 {
+    margin-top: 28px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 1050px;
+    margin-top: 36px;
+}
+
+.stat {
+    padding: 12px;
+    border: 1px solid #cccccc;
+}
+
+.stat strong {
+    display: block;
+}
+
+.posts {
+    grid-column: 1 / -1;
+}
+
+.posts h2 + h2 {
+    margin-top: 24px;
+}

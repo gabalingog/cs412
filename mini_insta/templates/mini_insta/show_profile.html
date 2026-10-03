@@ -1,0 +1,51 @@
+<!-- File: mini_insta/show_all_profiles.py
+Author: Gab Alingog (galingog@bu.edu), 10/01/2026
+Description: Specific Instagram profile of user -->
+
+{% extends 'mini_insta/base.html' %}
+ 
+{% block header %}
+@{{profile.username}}
+{% endblock %}
+ 
+{% block content %}
+<div class="main">
+    <div class="profile">
+        <div class="profile-side">
+            {% if profile.profile_image_url %}
+            <img src="{{profile.profile_image_url}}" alt="{{profile.display_name}}">
+            {% endif %}
+ 
+            <div class="bio">
+                {{profile.bio_text}}
+            </div>
+            <div class="joined">
+                Joined {{profile.join_date}}
+            </div>
+        </div>
+
+        <div class="profile-info">
+            <h2>{{profile.display_name}}</h2>
+
+            <div class="stats">
+                <div class="stat"><strong>TBD</strong> posts</div>
+                <div class="stat"><strong>TBD</strong> followers</div>
+                <div class="stat"><strong>TBD</strong> following</div>
+            </div>
+        </div>
+
+        <div class="posts">
+            <h2>Posts</h2>
+            <h2>No Posts</h2>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<a href="{% url 'show_profile' profile.pk %}" title="{{profile.display_name}}">
+{% if profile.profile_image_url %}
+<img src="{{profile.profile_image_url}}" alt="{{profile.display_name}}">
+{% endif %}
+</a>
+{% endblock %}
