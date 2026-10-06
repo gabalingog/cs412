@@ -16,3 +16,12 @@ class Profile(models.Model):
     def __str__(self):
         '''Return the string'''
         return f'{self.username} ({self.display_name})'
+
+class Post(models.Model):
+    '''Attributes of the users' Instagram post'''
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=True)
+    caption = models.TextField(blank=True)
+
+    def __str__(self):
+        return f'<strong>@{self.profile.username}</strong> {self.caption}'
