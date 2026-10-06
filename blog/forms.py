@@ -1,7 +1,7 @@
 # forms to update and create and delete
 
 from django import forms
-from .models import Article
+from .models import Article, Comment
 
 # create a form class
 
@@ -11,3 +11,8 @@ class CreateArticleForm(forms.ModelForm):
         model = Article
         fields = ['author', 'title', 'text', 'image_url']
         
+# form to create comments
+class CreateCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['article', 'author', 'text']

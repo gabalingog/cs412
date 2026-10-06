@@ -32,3 +32,23 @@ class Article(models.Model):
     def get_absolute_url(self):
         '''Return URL to show one instance'''
         return reverse('article', kwargs={'pk':self.pk})
+    
+    # method to retrieve the comments
+    def get_all_comments(self):
+        comments = Comment.objects.filter(article=self)
+        return comments
+
+
+class Comment(models.Model):
+    '''Comments on an article'''
+
+    # Unique identifier for ONE instance of the article
+    # if the article is deletes, ALL comments on it are deleted => cascade
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    author = models.TextField(blank=False) # already defined
+    text = models.TextField(blank=False)
+    published = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        '''Return comment string'''
+        return f'{self.text}'

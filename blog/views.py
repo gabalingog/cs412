@@ -3,6 +3,7 @@ from .models import Article
 from django.views.generic import ListView, DetailView, CreateView # -> single instance of one model
 import random
 from .forms import *
+from django.urls import reverse
 
 # Create your views here.
 
@@ -41,3 +42,12 @@ class CreateArticleView(CreateView):
     '''
     form_class = CreateArticleForm
     template_name = 'blog/create_article_form.html'
+
+# method to display create comment form
+class CreateCommentView(CreateView):
+    form_class = CreateCommentForm
+    template_name = 'blog/create_comment_form.html'
+
+    def get_success_url(self):
+        '''Redict after a new comment submitted'''
+        return reverse('show_all')
