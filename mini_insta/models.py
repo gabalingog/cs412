@@ -6,6 +6,7 @@ from django.db import models
 
 # Create your models here.
 class Profile(models.Model):
+    '''Data for the profiles of the user'''
     username = models.TextField(blank=False)
     display_name = models.TextField(blank=False)
     profile_image_url = models.TextField(blank=False)
@@ -13,4 +14,5 @@ class Profile(models.Model):
     join_date = models.TextField(blank=False)
 
     def __str__(self):
+        '''Return the string'''
         return f'{self.username} ({self.display_name})'
