@@ -43,6 +43,9 @@ class CreateArticleView(CreateView):
     form_class = CreateArticleForm
     template_name = 'blog/create_article_form.html'
 
+    def form_valid(self, form):
+        return super().form_valid(form)
+
 # method to display create comment form
 class CreateCommentView(CreateView):
     form_class = CreateCommentForm
@@ -50,4 +53,32 @@ class CreateCommentView(CreateView):
 
     def get_success_url(self):
         '''Redict after a new comment submitted'''
-        return reverse('show_all')
+        pk = self.kwargs['pk']
+        # find url needed with reverse
+        return reverse('article', kwargs={'pk':pk})
+    
+    def form_valid(self, form):
+        '''Handles form submission and saves the new object
+        Needs foreign key of the article to know where the comment is placed'''
+
+        # retrieve the identifier
+        pk = self.kwargs['pk']
+        article = Article.objects.get(pk=pk)
+        # instance of whichever model
+        form.instance.article = article
+
+        # make the superclass method return it
+        return super().form_valid(form)
+
+
+    def get_context_data(self):
+        '''Return context to use in templates'''
+        context = super().get_context_data() # dictionary
+
+        # know which article
+        pk = self.kwargs['pk']
+        article = Article.objects.get(pk=pk)
+
+        # add article to context
+        context['article'] = article
+        return context

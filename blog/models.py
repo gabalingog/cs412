@@ -12,7 +12,9 @@ class Article(models.Model):
     author = models.TextField(blank=True)
     text = models.TextField(blank=True)
     published = models.DateTimeField(auto_now=True) # when it was created
-    image_url = models.URLField(blank=True)
+    # used to be an image link as string
+    # image_url = models.URLField(blank=True)
+    image_file = models.ImageField(blank=True)
 
 # after this, run python manage.py makemigrations to create a new file of data tables with id
 # run python manage.py migrate -> features needed

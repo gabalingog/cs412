@@ -20,7 +20,12 @@
 			</p>
 		</div>
 		<a href="{% url 'article' a.pk %}">
-			<img src="{{ a.image_url }}" alt="picture">
+			<!-- <img src="{{ a.image_url }}" alt="picture"> -->
+			{% if a.image_file %}
+				<img src="{{ a.image_file.url }}" alt="picture">
+			{% else %}
+				<h3>No image</h3>
+			{% endif %}
 		</a>
 		
     </article>
