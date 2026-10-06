@@ -16,6 +16,10 @@ class Profile(models.Model):
     def __str__(self):
         '''Return the string'''
         return f'{self.username} ({self.display_name})'
+    
+    def get_all_posts(self):
+        '''Finds all posts under a profile and returns a QuerySet'''
+        return Post.objects.filter(profile=self).order_by('timestamp')
 
 class Post(models.Model):
     '''Attributes of the users' Instagram post'''
@@ -25,6 +29,10 @@ class Post(models.Model):
 
     def __str__(self):
         return f'<strong>@{self.profile.username}</strong> {self.caption}'
+    
+    def get_all_posts(self):
+        '''Finds all photos under a post and returns a QuerySet'''
+        return Photo.objects.filter(post=self)
     
 class Photo(models.Model):
     '''Image with the post'''
