@@ -25,3 +25,12 @@ class Post(models.Model):
 
     def __str__(self):
         return f'<strong>@{self.profile.username}</strong> {self.caption}'
+    
+class Photo(models.Model):
+    '''Image with the post'''
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    image_url = models.TextField(blank=False)
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.post.pk} {self.image_url}'
