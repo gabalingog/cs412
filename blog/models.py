@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 # each data model is a class associated with a data base table with the same data
@@ -25,3 +26,9 @@ class Article(models.Model):
 # from blog.models import *
 # Article.objects.all()
 # similar to views.py functions
+
+# -------------------------------------------
+# to redirect where the form submission leads
+    def get_absolute_url(self):
+        '''Return URL to show one instance'''
+        return reverse('article', kwargs={'pk':self.pk})

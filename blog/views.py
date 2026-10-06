@@ -1,7 +1,8 @@
 # from django.shortcuts import render
 from .models import Article
-from django.views.generic import ListView, DetailView # -> single instance of one model
+from django.views.generic import ListView, DetailView, CreateView # -> single instance of one model
 import random
+from .forms import *
 
 # Create your views here.
 
@@ -33,4 +34,10 @@ class RandomArticleView(DetailView):
         article = random.choice(all_articles)
         return article
     
-    
+class CreateArticleView(CreateView):
+    '''handle new article
+    1. display HTML form to user (GET)
+    2. process the form submission and store the new article (POST)
+    '''
+    form_class = CreateArticleForm
+    template_name = 'blog/create_article_form.html'
