@@ -40,6 +40,7 @@ Description: Specific Instagram profile of user -->
             <!-- if it exists -->
                 {% for post in profile.get_all_posts %}
                 <div class="post">
+                    <a href="{% url 'show_post' post.pk %}">
                     {% if post.get_all_photos %}
                         <!-- account for multiple photos -->
                         {% for photo in post.get_all_photos %}
@@ -49,6 +50,7 @@ Description: Specific Instagram profile of user -->
                     {% else %}
                         <h2>No image</h2>
                     {% endif %}
+                    </a>
 
                     <p><strong>@{{profile.username}}</strong> {{post.caption}}</p>
                     <p>{{post.timestamp}}</p>

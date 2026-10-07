@@ -1,0 +1,55 @@
+<!-- File: mini_insta/templates/mini_insta/show_all_profiles.html
+Author: Gab Alingog (galingog@bu.edu), 10/01/2026
+Description: Landing page of all profiles -->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block header %}
+<a href="{% url 'show_profile' post.profile.pk %}">Back to @{{post.profile.username}}</a>
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <div class="profile">
+        <div class="profile-side">
+            {% if post.profile.profile_image_url %}
+            <img src="{{post.profile.profile_image_url}}" alt="{{post.profile.display_name}}">
+            {% endif %}
+ 
+            <div class="bio">
+                {{post.profile.bio_text}}
+            </div>
+            <div class="joined">
+                Joined {{post.profile.join_date}}
+            </div>
+        </div>
+
+        <div class="profile-info">
+            <h2>{{post.profile.display_name}}</h2>
+
+            <div class="stats">
+                <div class="stat"><strong>{{post.profile.get_all_posts.count}}</strong> posts</div>
+                <div class="stat"><strong>TBD</strong> followers</div>
+                <div class="stat"><strong>TBD</strong> following</div>
+            </div>
+        </div>
+
+        <div class="single_post">
+            <!-- loop through every photo in the post -->
+            {% for photo in post.get_all_photos %}
+                <img src="{{photo.image_url}}" alt="Photo">
+            {% endfor %}
+            <p><strong>@{{post.profile.username}}</strong> {{post.caption}}</p>
+            <p>{{post.timestamp}}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<a href="{% url 'show_profile' post.profile.pk %}" title="{{profile.display_name}}">
+{% if profile.profile_image_url %}
+<img src="{{post.profile.profile_image_url}}" alt="{{profile.display_name}}">
+{% endif %}
+</a>
+{% endblock %}
