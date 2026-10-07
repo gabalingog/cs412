@@ -28,9 +28,9 @@ class Post(models.Model):
     caption = models.TextField(blank=True)
 
     def __str__(self):
-        return f'<strong>@{self.profile.username}</strong> {self.caption}'
+        return f'{self.profile.username}{self.caption}'
     
-    def get_all_posts(self):
+    def get_all_photos(self):
         '''Finds all photos under a post and returns a QuerySet'''
         return Photo.objects.filter(post=self)
     

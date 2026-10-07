@@ -28,7 +28,7 @@ Description: Specific Instagram profile of user -->
             <h2>{{profile.display_name}}</h2>
 
             <div class="stats">
-                <div class="stat"><strong>TBD</strong> posts</div>
+                <div class="stat"><strong>{{profile.get_all_posts.count}}</strong> posts</div>
                 <div class="stat"><strong>TBD</strong> followers</div>
                 <div class="stat"><strong>TBD</strong> following</div>
             </div>
@@ -36,7 +36,27 @@ Description: Specific Instagram profile of user -->
 
         <div class="posts">
             <h2>Posts</h2>
+            {% if profile.get_all_posts %}
+            <!-- if it exists -->
+                {% for post in profile.get_all_posts %}
+                <div class="post">
+                    {% if post.get_all_photos %}
+                        <!-- account for multiple photos -->
+                        {% for photo in post.get_all_photos %}
+                    <!-- if there's photos -->
+                            <img src="{{photo.image_url}}" alt="Photo">
+                        {% endfor %}
+                    {% else %}
+                        <h2>No image</h2>
+                    {% endif %}
+
+                    <p><strong>@{{profile.username}}</strong> {{post.caption}}</p>
+                    <p>{{post.timestamp}}</p>
+                </div>
+                {% endfor %}
+            {% else %}
             <h2>No Posts</h2>
+            {% endif %}
         </div>
     </div>
 </div>
