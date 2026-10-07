@@ -12,7 +12,7 @@ body {
 }
 
 .header {
-    background-color: #f4f4f4;
+    background-color: white;
 }
 
 .header h1 {
@@ -32,8 +32,8 @@ body {
     gap: 16px;
     height: 74px;
     padding: 0 8px;
-    background-color: #f4f4f4;
-    border-top: 1px solid #dddddd;
+    background-color: white;
+    border-top: 1px solid gray;
 }
 
 .footer a {
@@ -115,7 +115,7 @@ body {
 
 .stat {
     padding: 12px;
-    border: 1px solid black;
+    border: 1px solid gray;
 }
 
 .stat strong {
@@ -128,4 +128,120 @@ body {
 
 .posts h2 + h2 {
     margin-top: 24px;
+}
+
+a {
+    color: inherit;
+}
+
+.profile .posts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-top: 20px;
+}
+
+.profile .posts > h2 {
+    grid-column: 1 / -1;
+    margin: 0 0 10px 0;
+}
+
+.profile .post {
+    margin: 0;
+    padding: 0;
+    border-bottom: none;
+}
+
+.profile .post > a {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.profile .post > a img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    margin: 0;
+    border-radius: 0;
+    aspect-ratio: auto;
+    object-fit: cover;
+}
+
+.single_post {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.single_post img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin: 0;
+}
+
+.single_post p {
+    flex-basis: 100%;
+    margin: 4px 0;
+}
+
+.main > h1 {
+    margin: 0 0 16px 0;
+    font-size: 28px;
+}
+
+.inside {
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 6px;
+}
+
+.inside p {
+    margin: 16px 0 6px 0;
+}
+
+.inside p:first-of-type {
+    margin-top: 0;
+}
+
+.inside textarea,
+.inside input[type="text"] {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    font-family: inherit;
+    font-size: 18px;
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.inside textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+.inside input[type="submit"],
+.inside input[type="Submit"] {
+    margin-top: 20px;
+    padding: 10px 15px;
+    font-size: 18px;
+    color: white;
+    background-color: black;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.inside a {
+    margin-left: 16px;
+    color: black;
 }
