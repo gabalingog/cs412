@@ -45,7 +45,7 @@ Description: Specific Instagram profile of user -->
                         <!-- account for multiple photos -->
                         {% for photo in post.get_all_photos %}
                     <!-- if there's photos -->
-                            <img src="{{photo.image_url}}" alt="Photo">
+                            <img src="{{photo.get_image_url}}" alt="Photo">
                         {% endfor %}
                     {% else %}
                         <h2>No image</h2>

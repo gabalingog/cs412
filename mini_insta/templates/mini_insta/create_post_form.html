@@ -6,21 +6,26 @@
 
 {% block content %}
 <div class="main">
-    <form method="POST">
-        {% csrf_token %}
+    <div class="inside">
+        <form action="{% url 'create_post' profile.pk %}" method="POST" 
+        enctype="multipart/form-data">
+            {% csrf_token %}
+    
+            <p><strong>Caption:</strong></p>
+            <textarea
+                name="caption"
+                placeholder="Type here..."
+            ></textarea>
+    
+            <!-- <p><strong>Image URL:</strong></p>
+            <input type="text" name="image_url" placeholder="Insert here..."> -->
 
-        <p><strong>Caption:</strong></p>
-        <textarea
-            name="caption"
-            placeholder="Type here..."
-        ></textarea>
-
-        <p><strong>Image URL:</strong></p>
-        <input type="text" name="image_url" placeholder="Insert here...">
-
-        <br><br>
-        <input type="Submit" value="Create Post">
-        <a href="{% url 'show_profile' profile.pk %}">Cancel</a>
-    </form>
+            <input type="file" name="files" accept="image/*" multiple>
+    
+            <br><br>
+            <input type="Submit" value="Create Post">
+            <a href="{% url 'show_profile' profile.pk %}">Cancel</a>
+        </form>
+    </div>
 </div>
 {% endblock %}

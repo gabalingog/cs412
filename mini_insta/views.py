@@ -48,8 +48,13 @@ class CreatePostView(CreateView):
         # instance of whichever model
         form.instance.profile = profile
         post = form.save()
-        image_url = self.request.POST.get('image_url')
-        if image_url: # check if it exists
-            Photo.objects.create(post=post, image_url=image_url)
+        # image_url = self.request.POST.get('image_url')
+        # if image_url: # check if it exists
+        #     Photo.objects.create(post=post, image_url=image_url)
+
+        files = self.request.FILES.getlist('files')
+        for x in files:
+            Photo.objects.create(post=post, image_file=x)
+
         # make the superclass method return it
         return super().form_valid(form)

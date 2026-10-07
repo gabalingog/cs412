@@ -37,7 +37,7 @@ Description: Landing page of all profiles -->
         <div class="single_post">
             <!-- loop through every photo in the post -->
             {% for photo in post.get_all_photos %}
-                <img src="{{photo.image_url}}" alt="Photo">
+                <img src="{{photo.get_image_url}}" alt="Photo">
             {% endfor %}
             <p><strong>@{{post.profile.username}}</strong> {{post.caption}}</p>
             <p>{{post.timestamp}}</p>
