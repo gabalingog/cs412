@@ -1,0 +1,34 @@
+{% extends 'mini_insta/base.html' %}
+
+{% block header %}
+<h1>Create post for @{{profile.username}}</h1>
+{% endblock %}
+
+<div class="main">
+    <form method="POST">
+        {% csrf_token %}
+
+        <p><strong>Caption:</strong></p>
+        <textarea
+            name="caption"
+            placeholder="Type here..."
+        ></textarea>
+
+        <p><strong>Image URL:</strong></p>
+        <input type="text" name="image_url" placeholder="Insert here...">
+
+        <br><br>
+        <input type="Submit" value="Create Post">
+        <a href="{% url 'show_profile' profile.pk %}">Cancel</a>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+<a href="{% url 'show_profile' profile.pk %}">
+{% if post.profile.profile_image_url %}
+<img src="{{profile.profile_image_url}}">
+{% endif %}
+</a>
+{% endblock %}

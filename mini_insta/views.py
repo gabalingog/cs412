@@ -4,7 +4,9 @@
 
 from django.shortcuts import render
 from .models import *
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
+from .forms import *
+from django.urls import reverse
 
 # Create your views here.
 class ProfileListView(ListView):
@@ -23,14 +25,31 @@ class PostDetailView(DetailView):
     template_name = 'mini_insta/show_post.html'
     context_object_name = 'post'
 
-    # def get_context_data(self, **kwargs):
-    #     '''Return context to use in templates'''
-    #     context = super().get_context_data(**kwargs) # dictionary
+class CreatePostView(CreateView):
+    '''Create a new post for a profile'''
+    form_class = CreatePostForm
+    template_name = 'mini_insta/create_post_form.html'
 
-    #     # know which post
-    #     pk = self.kwargs['pk']
-    #     post = Post.objects.get(pk=pk)
-
-    #     # add profile to context
-    #     context['profile'] = post.profile
-    #     return context
+    def get_context_data(self):
+        '''Return context to use in templates'''
+        context = super().get_context_data() # dictionary
+        # know which profile
+        pk = self.kwargs['pk']
+        profile = Profile.objects.get(pk=pk)
+        # add profile to context
+        context['profile'] = profile
+        return context
+    
+    def form_valid(self, form):
+        '''Handles the form submission'''
+        # retrieve the identifier
+        pk = self.kwargs['pk']
+        profile = profile.objects.get(pk=pk)
+        # instance of whichever model
+        form.instance.profile = profile
+        post = form.save()
+        image_url = self.request.get('image_url')
+        if image_url: # check if it exists
+            Photo.objects.create(post, image_url)
+        # make the superclass method return it
+        return super().form_valid(form)

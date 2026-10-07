@@ -3,6 +3,7 @@
 # Description: Models needed
 
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Profile(models.Model):
@@ -33,6 +34,10 @@ class Post(models.Model):
     def get_all_photos(self):
         '''Finds all photos under a post and returns a QuerySet'''
         return Photo.objects.filter(post=self)
+    
+    def get_absolute_url(self):
+        '''Return URL to show one instance'''
+        return reverse('show_post', kwargs={'pk':self.pk})
     
 class Photo(models.Model):
     '''Image with the post'''
