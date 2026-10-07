@@ -65,9 +65,9 @@ Description: Specific Instagram profile of user -->
 {% endblock %}
 
 {% block footer %}
-<a href="{% url 'show_profile' profile.pk %}" title="{{profile.display_name}}">
+<a href="{% url 'show_profile' profile.pk %}">
 {% if profile.profile_image_url %}
-<img src="{{profile.profile_image_url}}" alt="{{profile.display_name}}">
+<img src="{{profile.profile_image_url}}">
 {% endif %}
 </a>
 {% endblock %}
