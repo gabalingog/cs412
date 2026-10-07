@@ -22,6 +22,9 @@ Description: Contains the base html code -->
             <a href="{% url 'show_all_profiles' %}" title="Show all profiles">
                 <img class="home-icon" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original">
             </a>
+            {% if profile %}
+            <a href="{% url 'create_post' profile.pk %}"><strong>Create Post</strong></a>
+            {% endif %}
             {% block footer %}
             {% endblock %}
         </div>

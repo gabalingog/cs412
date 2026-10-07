@@ -4,6 +4,7 @@
 <h1>Create post for @{{profile.username}}</h1>
 {% endblock %}
 
+{% block content %}
 <div class="main">
     <form method="POST">
         {% csrf_token %}
@@ -22,13 +23,4 @@
         <a href="{% url 'show_profile' profile.pk %}">Cancel</a>
     </form>
 </div>
-
-{% endblock %}
-
-{% block footer %}
-<a href="{% url 'show_profile' profile.pk %}">
-{% if post.profile.profile_image_url %}
-<img src="{{profile.profile_image_url}}">
-{% endif %}
-</a>
 {% endblock %}

@@ -44,12 +44,12 @@ class CreatePostView(CreateView):
         '''Handles the form submission'''
         # retrieve the identifier
         pk = self.kwargs['pk']
-        profile = profile.objects.get(pk=pk)
+        profile = Profile.objects.get(pk=pk)
         # instance of whichever model
         form.instance.profile = profile
         post = form.save()
-        image_url = self.request.get('image_url')
+        image_url = self.request.POST.get('image_url')
         if image_url: # check if it exists
-            Photo.objects.create(post, image_url)
+            Photo.objects.create(post=post, image_url=image_url)
         # make the superclass method return it
         return super().form_valid(form)

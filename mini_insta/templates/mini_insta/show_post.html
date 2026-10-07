@@ -45,11 +45,3 @@ Description: Landing page of all profiles -->
     </div>
 </div>
 {% endblock %}
-
-{% block footer %}
-<a href="{% url 'show_profile' post.profile.pk %}">
-{% if post.profile.profile_image_url %}
-<img src="{{post.profile.profile_image_url}}">
-{% endif %}
-</a>
-{% endblock %}

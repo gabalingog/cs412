@@ -63,11 +63,3 @@ Description: Specific Instagram profile of user -->
     </div>
 </div>
 {% endblock %}
-
-{% block footer %}
-<a href="{% url 'show_profile' profile.pk %}">
-{% if profile.profile_image_url %}
-<img src="{{profile.profile_image_url}}">
-{% endif %}
-</a>
-{% endblock %}
