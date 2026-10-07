@@ -1,12 +1,10 @@
 # File: mini_insta/urls.py
-# Author: Gab Alingog (galingog@bu.edu), 10/01/2026
+# Author: Gab Alingog (galingog@bu.edu), 10/07/2026
 # Description: Functions for each of the web pages
 
-from django.shortcuts import render
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView
 from .forms import *
-from django.urls import reverse
 
 # Create your views here.
 class ProfileListView(ListView):
@@ -48,6 +46,8 @@ class CreatePostView(CreateView):
         # instance of whichever model
         form.instance.profile = profile
         post = form.save()
+
+        # Old instructions ----------------------------
         # image_url = self.request.POST.get('image_url')
         # if image_url: # check if it exists
         #     Photo.objects.create(post=post, image_url=image_url)

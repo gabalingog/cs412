@@ -1,6 +1,6 @@
 # File: mini_insta/models.py
-# Author: Gab Alingog (galingog@bu.edu), 10/01/2026
-# Description: Models needed
+# Author: Gab Alingog (galingog@bu.edu), 10/07/2026
+# Description: Models needed for the application
 
 from django.db import models
 from django.urls import reverse
@@ -29,6 +29,7 @@ class Post(models.Model):
     caption = models.TextField(blank=True)
 
     def __str__(self):
+        '''Return string'''
         return f'{self.profile.username}{self.caption}'
     
     def get_all_photos(self):
@@ -47,6 +48,7 @@ class Photo(models.Model):
     image_file = models.ImageField(blank=True)
 
     def __str__(self):
+        '''Return string depending on the image variable'''
         if self.image_url:
             return f'{self.post.pk} {self.image_url}'
         elif self.image_file:

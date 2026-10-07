@@ -1,5 +1,5 @@
 # File: mini_insta/urls.py
-# Author: Gab Alingog (galingog@bu.edu), 10/01/2026
+# Author: Gab Alingog (galingog@bu.edu), 10/07/2026
 # Description: Path names and configuration of the website
 
 from django.urls import path

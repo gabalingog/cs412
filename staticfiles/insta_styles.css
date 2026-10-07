@@ -1,5 +1,5 @@
 /* File: quotes_style.css */
-/* Author: Gab Alingog (galingog@bu.edu), 10/02/2026 */
+/* Author: Gab Alingog (galingog@bu.edu), 10/07/2026 */
 /* Description:  CSS file of the website for design */
 
 body {
@@ -96,10 +96,6 @@ body {
     object-fit: cover;
 }
 
-.joined {
-    color: #666666;
-}
-
 .profile h2 {
     margin: 0;
     font-size: 32px;
@@ -119,7 +115,7 @@ body {
 
 .stat {
     padding: 12px;
-    border: 1px solid #cccccc;
+    border: 1px solid black;
 }
 
 .stat strong {
