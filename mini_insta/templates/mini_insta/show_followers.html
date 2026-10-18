@@ -13,9 +13,15 @@ Description: Show followers of a profile -->
     <h2>{{profile.get_num_followers}} users</h2>
     <div class="inside">
         {% for follower in profile.get_followers %}
-            <a href="{% url 'show_profile' follower.pk}">
+        <div class="profile-card">
+            <a href="{% url 'show_profile' follower.pk %}">
                 <img src="{{follower.profile_image_url}}" alt="Photo">
             </a>
+            <div class="profile-names">
+                <strong>@{{follower.username}}</strong> {{follower.display_name}}
+            </div>
+        </div>
+            
         {% empty %}
         <p>No followers</p>
         {% endfor %}

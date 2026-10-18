@@ -11,11 +11,16 @@ Description: Show followings of a profile -->
 {% block content %}
 <div class="main">
     <h2>{{profile.get_num_following}} users</h2>
-    <div class="inside">
+    <div class="grid-container">
         {% for follow in profile.get_following %}
-            <a href="{% url 'show_profile' follow.pk}">
+        <div class="profile-card">
+            <a href="{% url 'show_profile' follow.pk %}">
                 <img src="{{follow.profile_image_url}}" alt="Photo">
             </a>
+            <div class="profile-names">
+                <strong>@{{follow.username}}</strong> {{follow.display_name}}
+            </div>
+        </div>
         {% empty %}
         <p>No following</p>
         {% endfor %}

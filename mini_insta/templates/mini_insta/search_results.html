@@ -1,0 +1,54 @@
+<!-- File: mini_insta/templates/mini_insta/search_results.html
+Author: Gab Alingog (galingog@bu.edu), 10/18/2026
+Description: Search result feed for a user -->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block header %}
+<a href="{% url 'show_profile' profile.pk %}">@{{profile.username}}</a>
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <h3>Search results</h3>
+
+    <!-- Profile results -->
+    {% if profiles %}
+    <h3>Profiles matching for '{{query}}'</h3>
+    <div class="grid-container">
+        {% for user in profiles %}
+        <div class="profile-card">
+            <a href="{% url 'show_profile' user.pk %}">
+                <img src="{{user.profile_image_url}}">
+            </a>
+            <p><a href="{% url 'show_profile' user.pk %}"><strong>@{{user.username}}</strong></a> {{user.display_name}}</p>
+        </div>
+    </div>
+    
+    {% endfor %}
+    {% else %}
+    <p>No profiles matching '{{query}}'</p>
+    {% endif %}
+
+    <!-- Post results -->
+    {% if posts %}
+    <h3>Posts matching for '{{query}}'</h3>
+    <div class="grid-container">
+        {% for post in posts %}
+        <div class="profile-card">
+            <a href="{% url 'show_post' post.pk %}">
+                {% if post.get_all_photos %}
+                <img src="{{post.get_all_photos.first.get_image_url}}">
+                {% else %}
+                <h3>No image</h3>
+                {% endif %}
+            </a>
+            <p><strong>@{{post.profile.username}}</strong> {{post.caption}}</p>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <h3>No posts matching `{{query}}`</h3>
+{% endif %}
+</div>
+{% endblock %}

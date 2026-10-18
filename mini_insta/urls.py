@@ -1,5 +1,5 @@
 # File: mini_insta/urls.py
-# Author: Gab Alingog (galingog@bu.edu), 10/07/2026
+# Author: Gab Alingog (galingog@bu.edu), 10/18/2026
 # Description: Path names and configuration of the website
 
 from django.urls import path
@@ -16,4 +16,6 @@ urlpatterns = [
     path('post/<int:pk>/update', UpdatePostView.as_view(), name='update_post'),
     path('profile/<int:pk>/followers', ShowFollowersDetailView.as_view(), name='show_followers'),
     path('profile/<int:pk>/following', ShowFollowingDetailView.as_view(), name='show_following'),
+    path('profile/<int:pk>/feed', ShowFeedView.as_view(), name='show_feed'),
+    path('profile/<int:pk>/search', SearchView.as_view(), name='search'),
 ]

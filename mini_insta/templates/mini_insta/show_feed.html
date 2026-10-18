@@ -1,0 +1,55 @@
+<!-- File: mini_insta/templates/mini_insta/show_feed.html
+Author: Gab Alingog (galingog@bu.edu), 10/18/2026
+Description: Show feed of a profile -->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block header %}
+<h1>@{{profile.username}} feed:</h1>
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <div class="profile">
+        <div class="posts">
+            {% for post in profile.get_post_feed %}
+            <div class="post">
+
+                <a href="{% url 'show_post' post.pk %}">
+                    {% if post.get_all_photos %}
+                        <img src="{{post.get_all_photos.first.get_image_url}}" alt="Photo">
+                    {% else %}
+                        <h3>No image</h3>
+                    {% endif %}
+                </a>
+
+                <p>
+                    <a href="{% url 'show_profile' post.profile.pk %}"><strong>@{{post.profile.username}}</strong></a>
+                    {{post.profile.display_name}}
+                </p>
+
+                {% if post.get_likes.count > 0 %}
+                <p>
+                    Liked by <strong>@{{post.get_likes.first.profile.username}}</strong>
+                    {% if post.get_likes.count == 2 %}
+                        and 1 other
+                    {% elif post.get_likes.count > 2 %}
+                        and others
+                    {% endif %}
+                </p>
+                {% endif %}
+
+                <p><strong>@{{post.profile.username}}</strong> {{post.caption}}</p>
+                {% for comment in post.get_all_comments %}
+                    <p><strong>@{{comment.profile.username}}</strong> {{comment.text}}</p>
+                {% endfor %}
+
+                <p><small>{{post.timestamp}}</small></p>
+            </div>
+            {% empty %}
+            <h3>No posts yet</h3>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

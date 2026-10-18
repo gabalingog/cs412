@@ -1,5 +1,5 @@
 # File: mini_insta/models.py
-# Author: Gab Alingog (galingog@bu.edu), 10/07/2026
+# Author: Gab Alingog (galingog@bu.edu), 10/18/2026
 # Description: Models needed for the application
 
 from django.db import models
@@ -45,6 +45,11 @@ class Profile(models.Model):
     def get_num_following(self):
         '''Return number of user a profile follows'''
         return Follow.objects.filter(follower_profile=self).count()
+    
+    def get_post_feed(self):
+        '''List of posts for the user'''
+        following = self.get_following()
+        return Post.objects.filter(profile__in=following).order_by('-timestamp')
 
 class Post(models.Model):
     '''Attributes of the users' Instagram post'''
