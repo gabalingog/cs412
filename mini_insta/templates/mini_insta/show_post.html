@@ -39,6 +39,18 @@ Description: Landing page of one post of a profile -->
             {% for photo in post.get_all_photos %}
                 <img src="{{photo.get_image_url}}" alt="Photo">
             {% endfor %}
+
+            {% if post.get_likes.count > 0 %}
+            <p>
+                Liked by <strong><a href="{% url 'show_profile' post.get_likes.first.profile.pk %}">@{{post.get_likes.first.profile.username}}</a></strong>
+                {% if post.get_likes.count == 2 %}
+                    and 1 other
+                {% elif post.get_likes.count > 2 %}
+                    and others
+                {% endif %}
+            {% endif %}
+            </p>
+
             <p><strong>@{{post.profile.username}}</strong> {{post.caption}}</p>
             <p>{{post.timestamp}}</p>
 

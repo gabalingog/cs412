@@ -68,6 +68,10 @@ class Post(models.Model):
         '''Return all comments on a post'''
         return Comment.objects.filter(post=self).order_by('timestamp')
     
+    def get_likes(self):
+        '''All likes on a post'''
+        return Like.objects.filter(post=self)
+    
 class Photo(models.Model):
     '''Image with the post'''
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -113,3 +117,13 @@ class Comment(models.Model):
     def __str__(self):
         '''Return string'''
         return f'{self.profile.username} commented {self.text} on {self.post.pk}'
+    
+class Like(models.Model):
+    '''Like from a user on a post'''
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        '''Return string'''
+        return f'{self.profile.username} likes {self.post.pk}'
