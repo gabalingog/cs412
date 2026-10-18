@@ -42,6 +42,7 @@ Description: Landing page of one post of a profile -->
             <p><strong>@{{post.profile.username}}</strong> {{post.caption}}</p>
             <p>{{post.timestamp}}</p>
             <a href="{% url 'delete_post' post.pk %}">Delete</a>
+            <a href="{% url 'update_post' post.pk %}">Update</a>
         </div>
     </div>
 </div>

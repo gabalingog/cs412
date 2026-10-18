@@ -87,3 +87,9 @@ class DeletePostView(DeleteView):
         pk = self.kwargs['pk']
         post = Post.objects.get(pk=pk)
         return reverse('show_profile', kwargs={'pk':post.profile.pk})
+    
+class UpdatePostView(UpdateView):
+    '''Updates a post of a user'''
+    model = Post
+    form_class = UpdatePostForm
+    template_name = 'mini_insta/update_post_form.html'
