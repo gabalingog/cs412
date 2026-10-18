@@ -11,6 +11,9 @@
 			<p>
 			{{article.text}}
 			</p>
+			<h3>
+				<a href="{% url 'update_article' article.pk %}">Update</a>
+			</h3>
 		</div>
 		<!-- <img src="{{ article.image_url }}" alt="picture"> -->
 

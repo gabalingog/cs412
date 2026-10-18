@@ -8,5 +8,6 @@ urlpatterns = [
     path('article/<int:pk>', ArticleView.as_view(), name='article'), # show a single article
     path('article/create', CreateArticleView.as_view(), name='create_article'), # new
     # specfic key
-    path('article/<int:pk>/create_comment', CreateCommentView.as_view(), name='create_comment')
+    path('article/<int:pk>/create_comment', CreateCommentView.as_view(), name='create_comment'),
+    path('article/<int:pk>/update', UpdateArticleView.as_view(), name='update_article'),
 ]

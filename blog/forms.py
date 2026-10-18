@@ -17,3 +17,9 @@ class CreateCommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['author', 'text']
+
+# update article
+class UpdateArticleForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ['title', 'text']
