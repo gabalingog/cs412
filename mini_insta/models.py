@@ -23,6 +23,7 @@ class Profile(models.Model):
         return Post.objects.filter(profile=self).order_by('timestamp')
     
     def get_absolute_url(self):
+        '''Redirects to the correct url'''
         return reverse('show_profile', kwargs={'pk':self.pk})
 
 class Post(models.Model):

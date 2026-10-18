@@ -3,8 +3,9 @@
 # Description: Functions for each of the web pages
 
 from .models import *
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import *
+from django.urls import reverse
 
 # Create your views here.
 class ProfileListView(ListView):
@@ -64,3 +65,25 @@ class UpdateProfileView(UpdateView):
     model = Profile
     form_class = UpdateProfileForm
     template_name = 'mini_insta/update_profile_form.html'
+
+class DeletePostView(DeleteView):
+    '''Deletes a post from the user'''
+    model = Post
+    template_name = 'mini_insta/delete_post_form.html'
+
+    def get_context_data(self, **kwagrs):
+        '''Return context to use in templates'''
+        context = super().get_context_data(**kwargs) # dictionary
+        # know which post and profile
+        pk = self.kwargs['pk']
+        post = Post.objects.get(pk=pk)
+        # add profile to context
+        context['post'] = post
+        context['profile'] = post.profile
+        return context
+    
+    def get_success_url(self):
+        '''Redirects to the correct url'''
+        pk = self.kwargs['pk']
+        post = Post.objects.get(pk=pk)
+        return reverse('show_profile', kwargs={'pk':post.profile.pk})
