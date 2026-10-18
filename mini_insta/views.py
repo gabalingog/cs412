@@ -3,7 +3,7 @@
 # Description: Functions for each of the web pages
 
 from .models import *
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .forms import *
 
 # Create your views here.
@@ -58,3 +58,9 @@ class CreatePostView(CreateView):
 
         # make the superclass method return it
         return super().form_valid(form)
+    
+class UpdateProfileView(UpdateView):
+    '''Updates the profile of user'''
+    model = Profile
+    form_class = UpdateProfileForm
+    template_name = 'mini_insta/update_profile_form.html'

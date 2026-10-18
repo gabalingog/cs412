@@ -21,6 +21,9 @@ class Profile(models.Model):
     def get_all_posts(self):
         '''Finds all posts under a profile and returns a QuerySet'''
         return Post.objects.filter(profile=self).order_by('timestamp')
+    
+    def get_absolute_url(self):
+        return reverse('show_profile', kwargs={'pk':self.pk})
 
 class Post(models.Model):
     '''Attributes of the users' Instagram post'''
