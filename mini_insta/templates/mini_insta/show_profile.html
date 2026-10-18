@@ -29,8 +29,8 @@ Description: Specific Instagram profile of user -->
 
             <div class="stats">
                 <div class="stat"><strong>{{profile.get_all_posts.count}}</strong> posts</div>
-                <div class="stat"><strong>TBD</strong> followers</div>
-                <div class="stat"><strong>TBD</strong> following</div>
+                <div class="stat"><a href="{% url 'show_followers' profile.pk %}"><strong>{{profile.get_num_followers}}</strong> followers</a></div>
+                <div class="stat"><a href="{% url 'show_following' profile.pk %}"><strong>{{profile.get_num_following}}</strong> following</a></div>
             </div>
             
             <br>

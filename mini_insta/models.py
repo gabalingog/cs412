@@ -25,6 +25,26 @@ class Profile(models.Model):
     def get_absolute_url(self):
         '''Redirects to the correct url'''
         return reverse('show_profile', kwargs={'pk':self.pk})
+    
+    def get_followers(self):
+        '''Returns list of users who follow a profile'''
+        followers = Follow.objects.filter(profile=self)
+        followers_list = [user.follower_profile for user in followers]
+        return followers_list
+    
+    def get_num_followers(self):
+        '''Return number of followers for a profile'''
+        return Follow.objects.filter(profile=self).count()
+    
+    def get_following(self):
+        '''Returns list of users that a profile follows'''
+        follows = Follow.objects.filter(follower_profile=self)
+        follows_list = [user.profile for user in follows]
+        return follows_list
+    
+    def get_num_following(self):
+        '''Return number of user a profile follows'''
+        return Follow.objects.filter(follower_profile=self).count()
 
 class Post(models.Model):
     '''Attributes of the users' Instagram post'''
@@ -68,3 +88,13 @@ class Photo(models.Model):
             return self.image_file.url
         else:
             return ''
+        
+class Follow(models.Model):
+    '''Connects two profiles within the social network'''
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='profile')
+    follower_profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='follower_profile')
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        '''Return string'''
+        return f'{self.follower_profile.username} following {self.profile.username}'
