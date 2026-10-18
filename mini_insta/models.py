@@ -64,6 +64,10 @@ class Post(models.Model):
         '''Return URL to show one instance'''
         return reverse('show_post', kwargs={'pk':self.pk})
     
+    def get_all_comments(self):
+        '''Return all comments on a post'''
+        return Comment.objects.filter(post=self).order_by('timestamp')
+    
 class Photo(models.Model):
     '''Image with the post'''
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -98,3 +102,14 @@ class Follow(models.Model):
     def __str__(self):
         '''Return string'''
         return f'{self.follower_profile.username} following {self.profile.username}'
+
+class Comment(models.Model):
+    '''Comment on a user's post'''
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    text = models.TextField(blank=False)
+
+    def __str__(self):
+        '''Return string'''
+        return f'{self.profile.username} commented {self.text} on {self.post.pk}'
