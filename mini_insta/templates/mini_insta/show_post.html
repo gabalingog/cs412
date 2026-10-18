@@ -41,6 +41,7 @@ Description: Landing page of one post of a profile -->
             {% endfor %}
             <p><strong>@{{post.profile.username}}</strong> {{post.caption}}</p>
             <p>{{post.timestamp}}</p>
+            <a href="{% url 'delete_post' post.pk %}">Delete</a>
         </div>
     </div>
 </div>

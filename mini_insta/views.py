@@ -73,7 +73,7 @@ class DeletePostView(DeleteView):
 
     def get_context_data(self, **kwagrs):
         '''Return context to use in templates'''
-        context = super().get_context_data(**kwargs) # dictionary
+        context = super().get_context_data(**kwagrs) # dictionary
         # know which post and profile
         pk = self.kwargs['pk']
         post = Post.objects.get(pk=pk)
