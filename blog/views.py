@@ -5,6 +5,8 @@ import random
 from .forms import *
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin # authentication
+from django.contrib.auth.forms import UserCreationForm # new user
+from django.contrib.auth.models import User # user model from django
 
 # Create your views here.
 
@@ -62,7 +64,7 @@ class CreateArticleView(LoginRequiredMixin, CreateView):
         print(f'CreateArticleView.form_valid(): {user}')
 
         form.instance.user = user
-        
+
         return super().form_valid(form)
     
     def get_login_url(self):
@@ -125,3 +127,10 @@ class DeleteCommentView(DeleteView):
         # find the pk of the article
         article = comment.article
         return reverse('article', kwargs={'pk':article.pk})
+
+class UserRegistrationView(CreateView):
+    '''Show/process the registration form to create a new user'''
+
+    template_name = 'blog/register.html'
+    form_class = UserCreationForm
+    model = User
