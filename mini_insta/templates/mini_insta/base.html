@@ -1,5 +1,5 @@
 <!-- File: mini_insta/templates/mini_insta/base.html
-Author: Gab Alingog (galingog@bu.edu), 10/07/2026
+Author: Gab Alingog (galingog@bu.edu), 10/22/2026
 Description: Contains the base html code -->
 
 {% load static %}
@@ -33,6 +33,14 @@ Description: Contains the base html code -->
             {% endif %}
             {% block footer %}
             {% endblock %}
+
+            <hr>
+            {% if request.user.is_authenticated %} 
+                Logged in as: {{ request.user }}
+            <!-- not anon -->
+            {% else %}
+                Not logged in
+            {% endif %}
         </div>
     </body>
 </html>

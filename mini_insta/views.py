@@ -1,5 +1,5 @@
 # File: mini_insta/urls.py
-# Author: Gab Alingog (galingog@bu.edu), 10/18/2026
+# Author: Gab Alingog (galingog@bu.edu), 10/22/2026
 # Description: Functions for each of the web pages
 
 from .models import *
@@ -7,8 +7,16 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .forms import *
 from django.urls import reverse
 from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin # authentication
 
 # Create your views here.
+
+class LoginRequired(LoginRequiredMixin):
+    '''Subclass of LoginRequiredMixin with additional features'''
+
+    def get_profile(self):
+        return Profile.objects.get(user=self.request.user)
+    
 class ProfileListView(ListView):
     model = Profile
     template_name = 'mini_insta/show_all_profiles.html'
@@ -25,7 +33,7 @@ class PostDetailView(DetailView):
     template_name = 'mini_insta/show_post.html'
     context_object_name = 'post'
 
-class CreatePostView(CreateView):
+class CreatePostView(LoginRequired, CreateView):
     '''Create a new post for a profile'''
     form_class = CreatePostForm
     template_name = 'mini_insta/create_post_form.html'
@@ -61,13 +69,13 @@ class CreatePostView(CreateView):
         # make the superclass method return it
         return super().form_valid(form)
     
-class UpdateProfileView(UpdateView):
+class UpdateProfileView(LoginRequired, UpdateView):
     '''Updates the profile of user'''
     model = Profile
     form_class = UpdateProfileForm
     template_name = 'mini_insta/update_profile_form.html'
 
-class DeletePostView(DeleteView):
+class DeletePostView(LoginRequired, DeleteView):
     '''Deletes a post from the user'''
     model = Post
     template_name = 'mini_insta/delete_post_form.html'
@@ -89,7 +97,7 @@ class DeletePostView(DeleteView):
         post = Post.objects.get(pk=pk)
         return reverse('show_profile', kwargs={'pk':post.profile.pk})
     
-class UpdatePostView(UpdateView):
+class UpdatePostView(LoginRequired, UpdateView):
     '''Updates a post of a user'''
     model = Post
     form_class = UpdatePostForm
@@ -107,13 +115,13 @@ class ShowFollowingDetailView(DetailView):
     template_name = 'mini_insta/show_following.html'
     context_object_name = 'profile'
 
-class ShowFeedView(DetailView):
+class ShowFeedView(LoginRequired, DetailView):
     '''Show feed for a profile'''
     model = Profile
     template_name = 'mini_insta/show_feed.html'
     context_object_name = 'profile'
 
-class SearchView(ListView):
+class SearchView(LoginRequired, ListView):
     '''Search feature based on text for the user'''
     template_name = 'mini_insta/search_results.html'
     context_object_name = 'posts'
