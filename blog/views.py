@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 import random
 from .forms import *
 from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin # authentication
 
 # Create your views here.
 
@@ -44,7 +45,8 @@ class RandomArticleView(DetailView):
         article = random.choice(all_articles)
         return article
     
-class CreateArticleView(CreateView):
+class CreateArticleView(LoginRequiredMixin, CreateView):
+    # cant create if not logged in
     '''handle new article
     1. display HTML form to user (GET)
     2. process the form submission and store the new article (POST)
@@ -53,7 +55,19 @@ class CreateArticleView(CreateView):
     template_name = 'blog/create_article_form.html'
 
     def form_valid(self, form):
+        print(f'CreateArticleView.form_valid(): {form.cleaned_data}')
+
+        # find logged in user and attach to form instance (Article object)
+        user = self.request.user
+        print(f'CreateArticleView.form_valid(): {user}')
+
+        form.instance.user = user
+        
         return super().form_valid(form)
+    
+    def get_login_url(self):
+        '''Return url for login page'''
+        return reverse('login')
 
 # method to display create comment form
 class CreateCommentView(CreateView):
