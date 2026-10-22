@@ -3,7 +3,7 @@
 <html>
     <head>
         <title>Blog</title>
-        <link rel="stylesheet" href="{% static 'styles-blog.css' %}">
+        <link rel="stylesheet" href="{% static 'styles-blog.css' %}?v=3">
     </head>
 
     <body>
@@ -14,13 +14,24 @@
                     <li><a href="{% url 'random' %}">Random</a></li>
                     <li><a href="{% url 'show_all' %}">Show All</a></li>
                     <li><a href="{% url 'create_article' %}">Create Article</a></li>
+                    <!-- authentication -->
+                    {% if request.user.is_authenticated %}
+                        <li>
+                            <form action="{% url 'logout' %}" method="POST" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="logout-link">Logout</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
                 </ul>
 
                 <!-- login -->
                  <hr>
                  {% if request.user.is_authenticated %} 
+                 Logged in as: {{ request.user }}
                  <!-- not anon -->
-                 Logged in as: {{request.user}}
                  {% else %}
                  Not logged in
                  {% endif %}

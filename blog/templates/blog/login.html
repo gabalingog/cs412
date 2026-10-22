@@ -1,11 +1,15 @@
 {% extends 'blog/base.html' %}
+
 {% block content %}
 
 <h1>Login to our Blog</h1>
-<form action="{% url 'login' %}">
+
+<form action="{% url 'login' %}" method="POST">
     {% csrf_token %}
-    {{form}}
+    {{ form }}
+
     <input type="submit" value="Login">
+    <input type="hidden" name="next" value="{% url 'show_all' %}">
 </form>
 
 {% endblock %}
