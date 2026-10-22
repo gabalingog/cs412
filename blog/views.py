@@ -134,3 +134,7 @@ class UserRegistrationView(CreateView):
     template_name = 'blog/register.html'
     form_class = UserCreationForm
     model = User
+
+    def get_success_url(self):
+        '''URL Redirection after creation'''
+        return reverse('login')
