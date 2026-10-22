@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User # authentication
 
 # Create your models here.
 # each data model is a class associated with a data base table with the same data
@@ -15,6 +16,7 @@ class Article(models.Model):
     # used to be an image link as string
     # image_url = models.URLField(blank=True)
     image_file = models.ImageField(blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 # after this, run python manage.py makemigrations to create a new file of data tables with id
 # run python manage.py migrate -> features needed

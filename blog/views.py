@@ -15,6 +15,15 @@ class ShowAllView(ListView):
     template_name = 'blog/show_all.html'
     context_object_name = 'articles'
 
+    def dispatch(self, request, *args, **kwargs):
+        '''Override the dispatch method to add debugging information'''
+
+        if request.user.is_authenticated:
+            print(f'ShowAllView.dispatch(): request.user={request.user}')
+        else:
+            print(f'ShowAllView.dispatch(): not logged in')
+        return super().dispatch(request, *args, **kwargs)
+
 class ArticleView(DetailView):
     '''One model'''
 
