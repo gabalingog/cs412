@@ -10,7 +10,7 @@ Description: Update the profile of users -->
 
 {% block content %}
 <div class="main">
-    <form action="{% url 'update_profile' profile.pk %}" method="POST">
+    <form action="{% url 'update_profile' %}" method="POST">
         {% csrf_token %}
         <table>{{form.as_table}}</table>
         <input type="submit" name="submit" value="Submit">

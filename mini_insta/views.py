@@ -10,6 +10,7 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin # authentication
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.shortcuts import render, redirect
 
 # Create your views here.
 
@@ -39,12 +40,30 @@ class ProfileDetailView(DetailView):
         if 'pk' in self.kwargs:
             return super().get_object()
         return Profile.objects.filter(user=self.request.user).first()
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = None
+        if self.request.user.is_authenticated:
+            user = Profile.objects.filter(user=self.request.user).first()
+        context['my_profile'] = user
+        context['is_following'] = bool(user) and Follow.objects.filter(profile=self.object, follower_profile=user).exists()
+        return context
 
 class PostDetailView(DetailView):
     '''Single post'''
     model = Post
     template_name = 'mini_insta/show_post.html'
     context_object_name = 'post'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = None
+        if self.request.user.is_authenticated:
+            user = Profile.objects.filter(user=self.request.user).first()
+        context['my_profile'] = user
+        context['liked'] = bool(user) and Like.objects.filter(post=self.object, profile=user).exists()
+        return context
 
 class CreatePostView(LoginRequired, CreateView):
     '''Create a new post for a profile'''
@@ -204,3 +223,45 @@ class CreateProfileView(CreateView):
         login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
         form.instance.user = user
         return super().form_valid(form)
+
+class ProfileFollowView(LoginRequired, TemplateView):
+    '''Check profile followings'''
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+        user = self.get_profile()
+        other = Profile.objects.get(pk=self.kwargs['pk'])
+        if user != other and not Follow.objects.filter(profile=other, follower_profile=user).exists():
+            Follow.objects.create(profile=other, follower_profile=user)
+        return redirect('show_profile', pk=other.pk)
+    
+class DeleteFollowView(LoginRequired, TemplateView):
+    '''Unfollowing profiles'''
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+        user = self.get_profile()
+        other = Profile.objects.get(pk=self.kwargs['pk'])
+        Follow.objects.filter(profile=other, follower_profile=user).delete()
+        return redirect('show_profile', pk=other.pk)
+
+class PostLikesView(LoginRequired, TemplateView):
+    '''Profile likes a post'''
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+        user = self.get_profile()
+        post = Post.objects.get(pk=self.kwargs['pk'])
+        if post.profile != user and not Like.objects.filter(post=post, profile=user).exists():
+            Like.objects.create(post=post, profile=user)
+        return redirect('show_post', pk=post.pk)
+
+class DeleteLikePostView(LoginRequired, TemplateView):
+    '''Profile removes a like from a post'''
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+        user = self.get_profile()
+        post = Post.objects.get(pk=self.kwargs['pk'])
+        Like.objects.filter(post=post, profile=user).delete()
+        return redirect('show_post', pk=post.pk)

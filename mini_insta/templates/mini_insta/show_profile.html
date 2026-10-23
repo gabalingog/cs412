@@ -37,6 +37,14 @@ Description: Specific Instagram profile of user -->
             {% if request.user == profile.user %}
             <a href="{% url 'update_profile' %}">Update Profile</a>
             {% endif %}
+
+            {% if my_profile and my_profile != profile %}
+                {% if is_following %}
+                <a href="{% url 'delete_follow' profile.pk %}">Unfollow</a>
+                {% else %}
+                <a href="{% url 'follow' profile.pk %}">Follow</a>
+                {% endif %}
+            {% endif %}
         </div>
 
         <div class="posts">

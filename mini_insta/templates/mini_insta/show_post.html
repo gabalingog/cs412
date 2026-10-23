@@ -69,6 +69,14 @@ Description: Landing page of one post of a profile -->
             <a href="{% url 'delete_post' post.pk %}">Delete</a>
             <a href="{% url 'update_post' post.pk %}">Update</a>
             {% endif %}
+
+            {% if my_profile and my_profile != post.profile %}
+                {% if liked %}
+                <a href="{% url 'delete_like' post.pk %}">Unlike</a>
+                {% else %}
+                <a href="{% url 'like' post.pk %}">Like</a>
+                {% endif %}
+            {% endif %}
         </div>
     </div>
 </div>
