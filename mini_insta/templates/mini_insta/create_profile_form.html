@@ -1,0 +1,30 @@
+<!-- File: mini_insta/templates/mini_insta/create_profile_form.html
+Author: Gab Alingog (galingog@bu.edu), 10/22/2026
+Description: Form to create a new profile -->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block header %}
+<h1>Create a new Instagram profile</h1>
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <div class="inside">
+        <form action="{% url 'create_profile' %}" method="POST" 
+        enctype="multipart/form-data">
+            {% csrf_token %}
+    
+            <table>
+                {{user_create_form.as_table}}
+                {{form.as_table}}
+            </table>
+            <input type="submit" value="Create">
+        </form>
+
+        <form action="{% url 'show_all_profiles' %}" method="GET">
+            <input type="submit" value="Cancel">
+        </form>
+    </div>
+</div>
+{% endblock %}

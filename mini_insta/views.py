@@ -8,6 +8,8 @@ from .forms import *
 from django.urls import reverse
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin # authentication
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 # Create your views here.
 
@@ -185,3 +187,20 @@ class SearchView(LoginRequired, ListView):
 class LoggedOutView(TemplateView):
     '''Confirmation from logging out'''
     template_name = 'mini_insta/logged_out.html'
+
+class CreateProfileView(CreateView):
+    '''Create new profile user'''
+    template_name = 'mini_insta/create_profile_form.html'
+    form_class = CreateProfileForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_create_form'] = UserCreationForm()
+        return context
+    
+    def form_valid(self, form):
+        user_create = UserCreationForm(self.request.POST)
+        user = user_create.save()
+        login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
+        form.instance.user = user
+        return super().form_valid(form)
