@@ -3,7 +3,7 @@
 # Description: Functions for each of the web pages
 
 from .models import *
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from .forms import *
 from django.urls import reverse
 from django.shortcuts import render
@@ -13,9 +13,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin # authentication
 
 class LoginRequired(LoginRequiredMixin):
     '''Subclass of LoginRequiredMixin with additional features'''
-
+    
+    def get_login_url(self):
+        '''Return URL of the login page'''
+        return reverse('login')
+    
     def get_profile(self):
-        return Profile.objects.get(user=self.request.user)
+        return Profile.objects.filter(user=self.request.user).first()
     
 class ProfileListView(ListView):
     model = Profile
@@ -26,6 +30,13 @@ class ProfileDetailView(DetailView):
     model = Profile
     template_name = 'mini_insta/show_profile.html'
     context_object_name = 'profile'
+
+    def get_object(self):
+        '''Depends on logged in user'''
+
+        if 'pk' in self.kwargs:
+            return super().get_object()
+        return Profile.objects.filter(user=self.request.user).first()
 
 class PostDetailView(DetailView):
     '''Single post'''
@@ -38,23 +49,26 @@ class CreatePostView(LoginRequired, CreateView):
     form_class = CreatePostForm
     template_name = 'mini_insta/create_post_form.html'
 
-    def get_context_data(self):
+    def get_context_data(self, **kwargs):
         '''Return context to use in templates'''
-        context = super().get_context_data() # dictionary
+        context = super().get_context_data(**kwargs) # dictionary
         # know which profile
-        pk = self.kwargs['pk']
-        profile = Profile.objects.get(pk=pk)
+        # pk = self.kwargs['pk']
+        # profile = Profile.objects.get(pk=pk)
         # add profile to context
-        context['profile'] = profile
+        # context['profile'] = profile
+        context = super().get_context_data(**kwargs)
+        context['profile'] = self.get_profile()
         return context
     
     def form_valid(self, form):
         '''Handles the form submission'''
         # retrieve the identifier
-        pk = self.kwargs['pk']
-        profile = Profile.objects.get(pk=pk)
+        # pk = self.kwargs['pk']
+        # profile = Profile.objects.get(pk=pk)
         # instance of whichever model
-        form.instance.profile = profile
+        # form.instance.profile = profile
+        form.instance.profile = self.get_profile()
         post = form.save()
 
         # Old instructions ----------------------------
@@ -74,6 +88,9 @@ class UpdateProfileView(LoginRequired, UpdateView):
     model = Profile
     form_class = UpdateProfileForm
     template_name = 'mini_insta/update_profile_form.html'
+
+    def get_object(self):
+        return self.get_profile()
 
 class DeletePostView(LoginRequired, DeleteView):
     '''Deletes a post from the user'''
@@ -121,6 +138,9 @@ class ShowFeedView(LoginRequired, DetailView):
     template_name = 'mini_insta/show_feed.html'
     context_object_name = 'profile'
 
+    def get_object(self):
+        return self.get_profile()
+
 class SearchView(LoginRequired, ListView):
     '''Search feature based on text for the user'''
     template_name = 'mini_insta/search_results.html'
@@ -128,10 +148,14 @@ class SearchView(LoginRequired, ListView):
 
     def dispatch(self, request, *args, **kwargs):
         '''Handles any request from user'''
+
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+
         if 'query' not in self.request.GET:
-            pk = self.kwargs['pk']
-            profile = Profile.objects.get(pk=pk)
-            return render(request, 'mini_insta/search.html', {'profile': profile})
+            # pk = self.kwargs['pk']
+            # profile = Profile.objects.get(pk=pk)
+            return render(request, 'mini_insta/search.html', {'profile': self.get_profile()})
         
         return super().dispatch(request, *args, **kwargs)
     
@@ -145,8 +169,9 @@ class SearchView(LoginRequired, ListView):
         context = super().get_context_data(**kwargs)
         query = self.request.GET.get('query', '')
 
-        pk = self.kwargs['pk']
-        context['profile'] = Profile.objects.get(pk=pk)
+        # pk = self.kwargs['pk']
+        # context['profile'] = Profile.objects.get(pk=pk)
+        context['profile'] = self.get_profile()
         context['query'] = query
         context['posts'] = self.get_queryset()
 
@@ -156,3 +181,7 @@ class SearchView(LoginRequired, ListView):
         profiles = set(find_username) | set(find_display) | set(find_bio)
         context['profiles'] = list(profiles)
         return context
+    
+class LoggedOutView(TemplateView):
+    '''Confirmation from logging out'''
+    template_name = 'mini_insta/logged_out.html'

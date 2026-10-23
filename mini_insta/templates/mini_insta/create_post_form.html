@@ -11,7 +11,7 @@ Description: Form to create a new post for a profile -->
 {% block content %}
 <div class="main">
     <div class="inside">
-        <form action="{% url 'create_post' profile.pk %}" method="POST" 
+        <form action="{% url 'create_post' %}" method="POST" 
         enctype="multipart/form-data">
             {% csrf_token %}
     

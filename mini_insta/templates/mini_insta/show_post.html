@@ -65,8 +65,10 @@ Description: Landing page of one post of a profile -->
                 {% endfor %}
             </div>
 
+            {% if request.user == post.profile.user %}
             <a href="{% url 'delete_post' post.pk %}">Delete</a>
             <a href="{% url 'update_post' post.pk %}">Update</a>
+            {% endif %}
         </div>
     </div>
 </div>

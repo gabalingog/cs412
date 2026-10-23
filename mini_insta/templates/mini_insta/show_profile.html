@@ -34,7 +34,9 @@ Description: Specific Instagram profile of user -->
             </div>
             
             <br>
-            <a href="{% url 'update_profile' profile.pk %}">Update Profile</a>
+            {% if request.user == profile.user %}
+            <a href="{% url 'update_profile' %}">Update Profile</a>
+            {% endif %}
         </div>
 
         <div class="posts">

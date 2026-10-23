@@ -11,7 +11,7 @@ Description: Search for a user -->
 {% block content %}
 <div class="main">
     <div class="inside">
-         <form action="{% url 'search' profile.pk %}" method="GET">
+         <form action="{% url 'search' %}" method="GET">
             <p><strong>Search:</strong></p>
             <textarea name="query" placeholder="Type here..."></textarea>
             <input type="submit" value="Search">
