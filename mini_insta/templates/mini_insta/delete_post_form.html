@@ -19,7 +19,7 @@ Description: Delete a post from a profile -->
         <input type="submit" value="Cancel">
     </form>
 
-    <div class="single-post">
+    <div class="single_post">
         {% for post in post.get_all_photos %}
             <img src="{{post.get_image_url}}" alt="Photo">
         {% endfor %}
