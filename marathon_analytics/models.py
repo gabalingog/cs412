@@ -38,7 +38,7 @@ class Result(models.Model):
     
 def load_data():
     '''Function to load data records from CVS to Django'''
-
+    Result.objects.all().delete()
     filename = '/Users/gabalingog/Downloads/2023_chicago_results.csv'
     f = open(filename, 'r') # open
 
