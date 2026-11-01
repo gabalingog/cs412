@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import Voter
 import plotly
 import plotly.graph_objs as go
@@ -55,7 +55,7 @@ class VotersListView(ListView):
 
         context['parties'] = Voter.objects.values_list(
             'party_affiliation', flat=True).distinct().order_by('party_affiliation')
-        context['years'] = range(1900, 2011)
+        context['years'] = [d.year for d in Voter.objects.dates('date_of_birth', 'year')]
         context['scores'] = range(0, 6)
 
         context['sel_party'] = self.request.GET.get('party', '')
@@ -113,3 +113,9 @@ class ResultListView(VotersListView):
             auto_open=False, output_type='div')
 
         return context
+    
+class VoterDetailView(DetailView):
+    '''Show one voter'''
+    model = Voter
+    template_name = 'voter_analytics/voter_detail.html'
+    context_object_name = 'v'
