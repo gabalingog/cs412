@@ -45,11 +45,31 @@
     </table>
 </div>
  
-<!-- pie chart -->
+<!-- # show the pie chart here: -->
 <div class="container">
     <div class="row">
-        {{graph_div_splits|safe}}
+        <!-- safe: render the HTML rather than display the HTML as text -->
+        {{graph_div_splits|safe}} 
     </div>
+</div>
+ 
+<!-- # show the bar chart here: -->
+<div class="container">
+    <div class="row">
+        <p>
+            {{r.first_name}} {{r.last_name}} started at {{r.start_time_of_day}} and 
+            finished at {{r.finish_time_of_day}}.
+        </p>
+        <p>
+            {{r.first_name}} {{r.last_name}} passed {{r.get_runners_passed}} other runners, 
+            and was passed by {{r.get_runners_passed_by}} others.    
+        </p>
+        
+        <p>
+            {{graph_div_passed|safe}}
+        </p>
+    </div>
+    
 </div>
  
 {% endblock %}

@@ -51,6 +51,17 @@ class ResultDetailView(DetailView):
                                                 auto_open = False,
                                                 output_type = 'div')
 
+        # bar chart
+        x= [f'Runners Passed by {r.first_name}', f'Runners who Passed {r.first_name}']
+        y = [r.get_runners_passed(), r.get_runners_passed_by()]
+        
+        fig = go.Bar(x=x, y=y)
+        title_text = f"Runners Passed/Passed By"
+        graph_div_passed = plotly.offline.plot({"data": [fig], 
+                                         "layout_title_text": title_text,
+                                         }, auto_open=False, output_type="div",               
+                                         ) 
         context['graph_div_splits'] = graph_div_splits
+        context['graph_div_passed'] = graph_div_passed
 
         return context
