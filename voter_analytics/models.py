@@ -1,3 +1,7 @@
+# File: models.py
+# Author: Gab Alingog (galingog@bu.edu), 11/01/2026
+# Description: Models of the application
+
 from django.db import models
 from datetime import datetime
 

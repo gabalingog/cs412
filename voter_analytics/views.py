@@ -1,3 +1,7 @@
+# File: views.py
+# Author: Gab Alingog (galingog@bu.edu), 11/01/2026
+# Description: Views of the application
+
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import Voter
@@ -70,7 +74,7 @@ class VotersListView(ListView):
 
 
 class ResultListView(VotersListView):
-    '''View to display graphs of aggregate voter data'''
+    '''Graphs of aggregate voter data'''
 
     template_name = 'voter_analytics/graphs.html'
     paginate_by = None

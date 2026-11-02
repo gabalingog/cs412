@@ -1,3 +1,7 @@
+# File: urls.py
+# Author: Gab Alingog (galingog@bu.edu), 11/01/2026
+# Description: URLs of the application
+
 from django.urls import path
 from . import views
 
