@@ -1,0 +1,25 @@
+{% load static %}
+
+<html>
+    <head>
+        <title>Math Dad Jokes!</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'random' %}">Random</a></li>
+                    <li><a href="{% url 'jokes' %}">Jokes</a></li>
+                    <li><a href="{% url 'pictures' %}">Pictures</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="wrapper">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

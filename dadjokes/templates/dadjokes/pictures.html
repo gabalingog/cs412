@@ -1,0 +1,22 @@
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+<h2>All Pictures</h2>
+<div class="mc-table">
+    <div class="mc-table-head">
+        <div class="detail">Picture</div>
+        <div class="detail">Contributor</div>
+        <div class="detail">Time</div>
+    </div>
+
+    {% for picture in pictures %}
+    <div class="mc-table-row">
+        <div class="detail"><a href="{% url 'picture' picture.pk %}">
+            <img src="{{picture.image_url}}" alt="Picture">
+        </a></div>
+        <div class="detail">{{picture.name}}</div>
+        <div class="detail">{{picture.timestamp}}</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

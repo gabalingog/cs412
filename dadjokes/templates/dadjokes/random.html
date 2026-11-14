@@ -1,0 +1,16 @@
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+<section>
+    <h2>Random Joke</h2>
+    <p>{{joke.text}}</p>
+    <p><small>by {{joke.name}}</small></p>
+</section>
+
+<section>
+    <h2>Random Picture</h2>
+    <img src="{{picture.image_url}}" alt="Picture">
+    <p><small>by {{picture.name}}</small></p>
+</section>
+
+{% endblock %}
