@@ -10,11 +10,6 @@ export const styles = StyleSheet.create({
       fontSize: 20,
       fontWeight: 'bold',
     },
-    separator: {
-      marginVertical: 30,
-      height: 1,
-      width: '80%',
-    },
     jokeText: { 
       fontSize: 18, 
       textAlign: 'center', 

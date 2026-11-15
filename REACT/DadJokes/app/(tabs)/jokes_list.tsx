@@ -1,5 +1,9 @@
+// File: DadJokes/app/tabs/jokes_list.tsx
+// Author: Gab Alingog (galingog@bu.edu), 11/15/2026
+// Description: List of all the jokes in the dataset
+
 import { useState, useEffect } from 'react';
-import { ActivityIndicator, Text, View, FlatList } from 'react-native';
+import { Text, View, FlatList, Button } from 'react-native';
 import { styles } from '../../assets/my_styles';
 
 const WEB_URL = 'https://cs-webapps.bu.edu/galingog/dadjokes';
@@ -13,8 +17,6 @@ type Joke = {
 
 export default function JokeListScreen() {
   const [jokes, setJokes] = useState<Joke[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   const fetchJokes = async () => {
     try {
@@ -23,9 +25,6 @@ export default function JokeListScreen() {
       setJokes(data.results);
     } catch (e) {
       console.log(e);
-      setError(String(e))
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -33,33 +32,20 @@ export default function JokeListScreen() {
     fetchJokes();
   }, []);
 
-  if (loading) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <Text>{error}</Text>
-      </View>
-    );
-  }
-
   return (
-    <FlatList
-      style={styles.list}
-      data={jokes}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({item}) => (
-        <View style={styles.inside}>
-          <Text style={styles.jokeText}>{item.text}</Text>
-          <Text style={styles.contributor}>by {item.name}</Text>
-        </View>
-      )}
-    />
+    <View style={{flex: 1}}>
+      <Button title="Refresh" onPress={fetchJokes} />
+      <FlatList
+        style={styles.list}
+        data={jokes}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({item}) => (
+          <View style={styles.inside}>
+            <Text style={styles.jokeText}>{item.text}</Text>
+            <Text style={styles.contributor}>by {item.name}</Text>
+          </View>
+        )}
+      />
+    </View>
   );
 }

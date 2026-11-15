@@ -1,7 +1,12 @@
+// File: DadJokes/app/tabs/index.tsx
+// Author: Gab Alingog (galingog@bu.edu), 11/15/2026
+// Description: Show a random joke and picture
+
 import { useState, useEffect } from 'react';
-import { ActivityIndicator, Image, Text, View, Button } from 'react-native';
+import { Image, Text, View, Button } from 'react-native';
 import { styles } from '../../assets/my_styles';
 
+// django website url
 const WEB_URL = 'https://cs-webapps.bu.edu/galingog/dadjokes';
 
 type Joke = {
@@ -21,52 +26,30 @@ type Picture = {
 export default function IndexScreen() {
   const [joke, setJoke] = useState<Joke | null>(null);
   const [picture, setPicture] = useState<Picture | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
   const fetchData = async () => {
-    setError(null);
-    setJoke(null);
-    setPicture(null);
     try {
       const jokeResponse = await fetch(`${WEB_URL}/api/random`);
-      const jokeData = await jokeResponse.json();
-      setJoke(jokeData);
+      setJoke(await jokeResponse.json());
       const pictureResponse = await fetch(`${WEB_URL}/api/random_picture`);
-      const pictureData = await pictureResponse.json();
-      setPicture(pictureData);
+      setPicture(await pictureResponse.json());
     } catch (e) {
-      // setError('Error');
       console.log(e);
-      setError(String(e));
     }
   };
 
+  // gets the data
   useEffect(() => {
     fetchData();
   }, []);
 
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <Text>{error}</Text>
-      </View>
-    );
-  }
-
-  if (!joke || !picture) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
-
   return (
+    // the joke and picture displayed
     <View style={styles.container}>
       <Text style={styles.title}>Dad Joke!</Text>
-      <Text style={styles.jokeText}>{joke.text}</Text>
-      <Text style={styles.contributor}>Contributed by {joke.name}</Text>
-      <Image source={{uri: picture.image_url}} style={styles.image}/>
+      {joke && <Text style={styles.jokeText}>{joke.text}</Text>}
+      {joke && <Text style={styles.contributor}>Contributed by {joke.name}</Text>}
+      {picture && (<Image source={{uri: picture.image_url}} style={styles.image}/>)}
 
       <Button title="New joke!" onPress={fetchData} />
     </View>
