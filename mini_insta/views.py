@@ -286,3 +286,13 @@ class ProfilePostAPIView(generics.ListAPIView):
         '''Posts of the user in order'''
         pk = self.kwargs['pk']
         return Post.objects.filter(profile=pk).order_by('-timestamp')
+
+class ProfileFeedAPIView(generics.ListAPIView):
+    '''Reading a feed for one profile'''
+    serializer_class = PostSerializer
+
+    def get_queryset(self):
+        '''Feed of the user'''
+        pk = self.kwargs['pk']
+        profile = Profile.objects.get(pk=pk)
+        return profile.get_post_feed()

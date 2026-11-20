@@ -31,4 +31,5 @@ urlpatterns = [
     path('api/profiles', ProfileListAPIView.as_view()),
     path('api/profile/<int:pk>', ProfileDetailAPIView.as_view()),
     path('api/profile/<int:pk>/posts', ProfilePostAPIView.as_view()),
+    path('api/profile/<int:pk>/feed', ProfileFeedAPIView.as_view()),
 ]
