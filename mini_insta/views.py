@@ -11,6 +11,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin # authentication
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
+from .serializers import ProfileSerializer, PostSerializer
+from rest_framework import generics
 
 # Create your views here.
 
@@ -265,3 +267,22 @@ class DeleteLikePostView(LoginRequired, TemplateView):
         post = Post.objects.get(pk=self.kwargs['pk'])
         Like.objects.filter(post=post, profile=user).delete()
         return redirect('show_post', pk=post.pk)
+
+class ProfileListAPIView(generics.ListAPIView):
+    '''Reading a list of profiles'''
+    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all().order_by('id')
+
+class ProfileDetailAPIView(generics.RetrieveAPIView):
+    '''Reading a profile'''
+    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all()
+
+class ProfilePostAPIView(generics.ListAPIView):
+    '''Show post of user'''
+    serializer_class = PostSerializer
+
+    def get_queryset(self):
+        '''Posts of the user in order'''
+        pk = self.kwargs['pk']
+        return Post.objects.filter(profile=pk).order_by('-timestamp')

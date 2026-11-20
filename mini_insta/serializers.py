@@ -9,7 +9,7 @@ class PhotoSerializer(serializers.ModelSerializer):
     
 class PostSerializer(serializers.ModelSerializer):
     '''Serializer for the photo model, specified which model/fields to send to the API'''
-    set = PhotoSerializer(many=True, required=False)
+    photo_set = PhotoSerializer(many=True, required=False)
 
     class Meta:
         model = Post
