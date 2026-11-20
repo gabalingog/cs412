@@ -278,7 +278,7 @@ class ProfileDetailAPIView(generics.RetrieveAPIView):
     serializer_class = ProfileSerializer
     queryset = Profile.objects.all()
 
-class ProfilePostAPIView(generics.ListAPIView):
+class ProfilePostAPIView(generics.ListCreateAPIView):
     '''Show post of user'''
     serializer_class = PostSerializer
 
@@ -286,6 +286,12 @@ class ProfilePostAPIView(generics.ListAPIView):
         '''Posts of the user in order'''
         pk = self.kwargs['pk']
         return Post.objects.filter(profile=pk).order_by('-timestamp')
+    
+    def perform_create(self, serializer):
+        '''Creating a post'''
+        pk = self.kwargs['pk']
+        profile = Profile.objects.get(pk=pk)
+        serializer.save(profile)
 
 class ProfileFeedAPIView(generics.ListAPIView):
     '''Reading a feed for one profile'''
