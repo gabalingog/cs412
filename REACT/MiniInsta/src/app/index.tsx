@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { Image, Text, View, Button } from 'react-native';
+import { Image, Text, View, Button, FlatList } from 'react-native';
 import { styles } from '../../assets/my_styles';
 import { BASE_URL, PROFILE_ID } from '../constants/api';
 
@@ -35,6 +35,48 @@ export default function ProfileScreen() {
     try {
       const profileResponse = await fetch(`${BASE_URL}/api/profile/${PROFILE_ID}`);
       setProfile(await profileResponse.json());
+      const postsResponse = await fetch(`${BASE_URL}/api/profile/${PROFILE_ID}/posts`)
+      const posts = await postsResponse.json();
+      setPosts(posts.results);
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return (
+    <View style={{flex: 1}}>
+      {profile && (
+        <View style={styles.inside}>
+          <Image source={{uri: profile.profile_image_url}} style={styles.image}/>
+          <Text style={styles.title}>{profile.display_name}</Text>
+          <Text style={styles.contributor}>@{profile.username}</Text>
+          <Text style={styles.text}>{profile.bio_text}</Text>
+        </View>
+      )}
+      <Button title="Refresh" onPress={fetchData} />
+
+      <FlatList
+        style={styles.list}
+        data={posts}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({item}) => (
+          <View style={styles.inside}>
+            <Text style={styles.text}>{item.caption}.</Text>
+            {item.photo_set.map((photo) => (
+              <Image
+                key={photo.id}
+                source={{uri: photo.image_url || photo.image_file || ''}}
+                style={styles.image}
+              />
+            ))}
+          </View>
+        )}
+      />
+
+    </View>
+  );
 }

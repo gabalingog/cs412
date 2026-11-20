@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
       fontSize: 20,
       fontWeight: 'bold',
     },
-    jokeText: { 
+    text: { 
       fontSize: 18, 
       textAlign: 'center', 
       marginBottom: 8, 
