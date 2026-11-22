@@ -1,8 +1,12 @@
+// File: MiniInsta/index.tsx
+// Author: Gab Alingog (galingog@bu.edu), 11/22/2026
+// Description: Contains the posts of the user
 
 import { useState, useEffect } from 'react';
 import { Image, Text, View, Button, FlatList } from 'react-native';
 import { styles } from '../../assets/my_styles';
-import { BASE_URL, PROFILE_ID } from '../constants/api';
+import { BASE_URL } from '../constants/api';
+import { useAuth } from '../context/AuthContext';
 
 type Profile = {
   id: number;
@@ -28,14 +32,15 @@ type Post = {
 };
 
 export default function ProfileScreen() {
+  const { authFetch, profileID, logout } = useAuth();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
 
   const fetchData = async () => {
     try {
-      const profileResponse = await fetch(`${BASE_URL}/api/profile/${PROFILE_ID}`);
+      const profileResponse = await authFetch(`${BASE_URL}/api/profile/${profileID}`);
       setProfile(await profileResponse.json());
-      const postsResponse = await fetch(`${BASE_URL}/api/profile/${PROFILE_ID}/posts`)
+      const postsResponse = await authFetch(`${BASE_URL}/api/profile/${profileID}/posts`);
       const posts = await postsResponse.json();
       setPosts(posts.results);
     } catch (e) {
@@ -49,6 +54,7 @@ export default function ProfileScreen() {
 
   return (
     <View style={styles.screen}>
+      {/* Profile section of the user */}
       {profile && (
         <View style={styles.profile}>
           <Image source={{uri: profile.profile_image_url}} style={styles.profileImg}/>
@@ -58,12 +64,14 @@ export default function ProfileScreen() {
         </View>
       )}
       <Button title="Refresh" onPress={fetchData} />
+      <Button title="Logout" onPress={logout} />
 
       <FlatList
         style={styles.list}
         data={posts}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({item}) => (
+          // Posts of user
           <View style={styles.inside}>
             {item.photo_set.map((photo) => (
               <Image

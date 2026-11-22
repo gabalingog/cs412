@@ -1,5 +1,5 @@
 // File: MiniInsta/constants/api.ts
-// Author: Gab Alingog (galingog@bu.edu), 11/19/2026
+// Author: Gab Alingog (galingog@bu.edu), 11/22/2026
 // Description: Base URL of the REST API
 
 // export const BASE_URL = 'https://cs-webapps.bu.edu/galingog/mini_insta';
