@@ -290,8 +290,7 @@ class ProfilePostAPIView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         '''Creating a post'''
         pk = self.kwargs['pk']
-        profile = Profile.objects.get(pk=pk)
-        post = serializer.save(profile)
+        post = serializer.save(profile=Profile.objects.get(pk=pk))
         image_url = self.request.data.get('image_url')
         if image_url:
             Photo.objects.create(post=post, image_url=image_url)

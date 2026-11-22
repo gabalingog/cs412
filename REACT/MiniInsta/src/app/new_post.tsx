@@ -6,14 +6,16 @@ import { BASE_URL, PROFILE_ID } from '../constants/api';
 
 export default function PostScreen() {
     const [caption, setCaption] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
 
     const submitPost = async () => {
         const response = await fetch(`${BASE_URL}/api/profile/${PROFILE_ID}/posts`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({caption: caption}),
+            body: JSON.stringify({caption: caption, imageUrl: imageUrl}),
         });
         setCaption('');
+        setImageUrl('');
     };
     
     return (
@@ -25,6 +27,14 @@ export default function PostScreen() {
                 value={caption}
                 onChangeText={setCaption}
                 multiline
+            />
+
+            <Text style={styles.title}>Image (optional):</Text>
+            <TextInput
+                style={styles.input}
+                placeholder='Image URL here...'
+                value={imageUrl}
+                onChangeText={setImageUrl}
             />
             <Button title='Post' onPress={submitPost}/>
         </View>
