@@ -328,8 +328,8 @@ class ProfilePostAPIView(generics.ListCreateAPIView):
     
     def perform_create(self, serializer):
         '''Creating a post'''
-        pk = self.kwargs['pk']
-        post = serializer.save(profile=Profile.objects.get(pk=pk))
+        profile = Profile.objects.filter(user=self.request.user).first()
+        post = serializer.save(profile=profile)
         image_url = self.request.data.get('image_url')
         if image_url:
             Photo.objects.create(post=post, image_url=image_url)
@@ -343,6 +343,7 @@ class ProfileFeedAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         '''Feed of the user'''
-        pk = self.kwargs['pk']
-        profile = Profile.objects.get(pk=pk)
+        profile = Profile.objects.filter(user=self.request.user).first()
+        if self.kwargs['pk'] != profile.pk:
+            raise PermissionDenied()
         return profile.get_post_feed()
