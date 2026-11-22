@@ -4,6 +4,7 @@ import { Image, Text, View, Button, FlatList, TextInput } from 'react-native';
 import { styles } from '../../assets/my_styles';
 import { BASE_URL, PROFILE_ID } from '../constants/api';
 
+
 export default function PostScreen() {
     const [caption, setCaption] = useState('');
     const [imageUrl, setImageUrl] = useState('');
@@ -12,7 +13,7 @@ export default function PostScreen() {
         const response = await fetch(`${BASE_URL}/api/profile/${PROFILE_ID}/posts`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({caption: caption, imageUrl: imageUrl}),
+            body: JSON.stringify({caption: caption, image_url: imageUrl}),
         });
         setCaption('');
         setImageUrl('');

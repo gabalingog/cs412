@@ -13,6 +13,13 @@ from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from .serializers import ProfileSerializer, PostSerializer
 from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.exceptions import PermissionDenied
 
 # Create your views here.
 
@@ -267,20 +274,52 @@ class DeleteLikePostView(LoginRequired, TemplateView):
         post = Post.objects.get(pk=self.kwargs['pk'])
         Like.objects.filter(post=post, profile=user).delete()
         return redirect('show_post', pk=post.pk)
+    
+# 
+
+class LoginAPIView(APIView):
+    '''Authentication login'''
+    authentication_classes = []
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        user = authenticate(
+            request,
+            username = request.data.get('username'),
+            password = request.data.get('password'),
+        )
+        if user: # exists
+            token, created = Token.objects.get_or_create(user=user)
+            profile = Profile.objects.filter(user=user).first()
+            return Response({
+                'token': token.key,
+                'user': {'id': user.id, 'username': user.username},
+                'profile': ProfileSerializer(profile).data,
+            })
+        return Response({'error': 'Invalid'}, status=401)
 
 class ProfileListAPIView(generics.ListAPIView):
     '''Reading a list of profiles'''
     serializer_class = ProfileSerializer
     queryset = Profile.objects.all().order_by('id')
+    
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
 class ProfileDetailAPIView(generics.RetrieveAPIView):
     '''Reading a profile'''
     serializer_class = ProfileSerializer
     queryset = Profile.objects.all()
 
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
 class ProfilePostAPIView(generics.ListCreateAPIView):
     '''Show post of user'''
     serializer_class = PostSerializer
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         '''Posts of the user in order'''
@@ -298,6 +337,9 @@ class ProfilePostAPIView(generics.ListCreateAPIView):
 class ProfileFeedAPIView(generics.ListAPIView):
     '''Reading a feed for one profile'''
     serializer_class = PostSerializer
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         '''Feed of the user'''
