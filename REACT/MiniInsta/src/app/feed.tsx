@@ -34,5 +34,26 @@ export default function FeedScreen() {
         fetchData();
     }, []);
 
-    
+    return (
+        <View style={styles.screen}>
+            <Button title='Refresh' onPress={fetchData}/>
+            <FlatList
+                style={styles.list}
+                data={posts}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({item}) => (
+                    <View style={styles.inside}>
+                        {item.photo_set.map((photo) => (
+                            <Image
+                                key={photo.id}
+                                source={{uri: photo.image_url || photo.image_file || ''}}
+                                style={styles.image}
+                            />
+                        ))}
+                        <Text style={styles.text}>{item.caption}</Text>
+                    </View>
+                )}
+            />
+        </View>
+    );
 }
