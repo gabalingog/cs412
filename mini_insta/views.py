@@ -291,7 +291,10 @@ class ProfilePostAPIView(generics.ListCreateAPIView):
         '''Creating a post'''
         pk = self.kwargs['pk']
         profile = Profile.objects.get(pk=pk)
-        serializer.save(profile)
+        post = serializer.save(profile)
+        image_url = self.request.data.get('image_url')
+        if image_url:
+            Photo.objects.create(post=post, image_url=image_url)
 
 class ProfileFeedAPIView(generics.ListAPIView):
     '''Reading a feed for one profile'''
