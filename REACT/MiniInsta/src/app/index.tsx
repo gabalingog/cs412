@@ -48,10 +48,10 @@ export default function ProfileScreen() {
   }, []);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={styles.screen}>
       {profile && (
-        <View style={styles.inside}>
-          <Image source={{uri: profile.profile_image_url}} style={styles.image}/>
+        <View style={styles.profile}>
+          <Image source={{uri: profile.profile_image_url}} style={styles.profileImg}/>
           <Text style={styles.title}>{profile.display_name}</Text>
           <Text style={styles.contributor}>@{profile.username}</Text>
           <Text style={styles.text}>{profile.bio_text}</Text>
@@ -65,7 +65,6 @@ export default function ProfileScreen() {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({item}) => (
           <View style={styles.inside}>
-            <Text style={styles.text}>{item.caption}.</Text>
             {item.photo_set.map((photo) => (
               <Image
                 key={photo.id}
@@ -73,6 +72,7 @@ export default function ProfileScreen() {
                 style={styles.image}
               />
             ))}
+            <Text style={styles.text}>{item.caption}.</Text>
           </View>
         )}
       />

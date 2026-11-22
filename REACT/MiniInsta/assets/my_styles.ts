@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
       fontSize: 18, 
       textAlign: 'center', 
       marginBottom: 8, 
+      marginTop: 8,
     },
     contributor: {
       fontSize: 14, 
@@ -42,6 +43,19 @@ export const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 10,
         fontSize: 15,
+    },
+    screen: {
+      flex: 1,
+      paddingTop: 60,
+    },
+    profile: {
+      alignItems: 'center',
+      paddingVertical: 15,
+    },
+    profileImg: {
+      width: 100,
+      height: 100,
+      borderRadius: 50,
     }
   });
   
